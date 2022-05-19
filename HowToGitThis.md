@@ -5,6 +5,6 @@
 #git commit again. 
 #Once commit goes through type in the message, ctrl-O to write out, then enter, then ctrl-X. 
 #Then git push
-# GMBlackjack
-# the token is... elsewhere! Annoying password token is annoying but it is what it is. 
-# Push complete! Yay! 
+#GMBlackjack
+#the token is... elsewhere! Annoying password token is annoying but it is what it is. 
+#Push complete! Yay! 
