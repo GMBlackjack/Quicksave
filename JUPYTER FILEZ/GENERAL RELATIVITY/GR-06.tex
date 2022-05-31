@@ -1,0 +1,862 @@
+% Based on http://nbviewer.jupyter.org/github/ipython/nbconvert-examples/blob/master/citations/Tutorial.ipynb , authored by Brian E. Granger
+    % Declare the document class
+    \documentclass[landscape,letterpaper,10pt,english]{article}
+
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+
+    \usepackage{iftex}
+    \ifPDFTeX
+        \usepackage[T1]{fontenc}
+        \IfFileExists{alphabeta.sty}{
+              \usepackage{alphabeta}
+          }{
+              \usepackage[mathletters]{ucs}
+              \usepackage[utf8x]{inputenc}
+          }
+    \else
+        \usepackage{fontspec}
+        \usepackage{unicode-math}
+    \fi
+
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics
+                         % to support a larger range
+    \makeatletter % fix for old versions of grffile with XeLaTeX
+    \@ifpackagelater{grffile}{2019/11/01}
+    {
+      % Do nothing on new versions
+    }
+    {
+      \def\Gread@@xetex#1{%
+        \IfFileExists{"\Gin@base".bb}%
+        {\Gread@eps{\Gin@base.bb}}%
+        {\Gread@@xetex@aux#1}%
+      }
+    }
+    \makeatother
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage{array}     % table support for pandoc >= 2.11.3
+    \usepackage{calc}      % table minipage width calculation for pandoc >= 2.11.1
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % common color for the border for error outputs.
+    \definecolor{outerrorbackground}{HTML}{FFDFDF}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+
+
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{GR-06}
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.61,0.40,0.00}{##1}}}
+\@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\@namedef{PY@tok@o}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ow}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@nb}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.80,0.25,0.22}{##1}}}
+\@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.46,0.46,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.41,0.47,0.13}{##1}}}
+\@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.36,0.12}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.52,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{0.89,0.00,0.00}{##1}}}
+\@namedef{PY@tok@ge}{\let\PY@it=\textit}
+\@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
+\@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
+\@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kd}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kr}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@bp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@fm}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@vc}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vg}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vi}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vm}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sa}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sb}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sc}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@dl}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s2}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sh}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s1}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@mb}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mf}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mh}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb.
+    \makeatletter
+        \newbox\Wrappedcontinuationbox
+        \newbox\Wrappedvisiblespacebox
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}}
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}}
+        \newcommand*\Wrappedcontinuationindent {3ex }
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox}
+        % Take advantage of the already applied Pygments mark-up to insert
+        % potential linebreaks for TeX processing.
+        %        {, <, #, %, $, ' and ": go to next line.
+        %        _, }, ^, &, >, - and ~: stay at end of broken line.
+        % Use of \textquotesingle for straight quote.
+        \newcommand*\Wrappedbreaksatspecials {%
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}%
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}%
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}%
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}%
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}%
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}%
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}%
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}%
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}%
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}%
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}%
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}%
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}%
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}%
+        }
+        % Some characters . , ; ? ! / are not pygmentized.
+        % This macro makes them "active" and they will insert potential linebreaks
+        \newcommand*\Wrappedbreaksatpunct {%
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}%
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}%
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}%
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}%
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}%
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}%
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}%
+            \catcode`\.\active
+            \catcode`\,\active
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active
+            \lccode`\~`\~
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        {\ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}}
+    }
+    
+
+    
+% Start the section counter at -1, so the Table of Contents is Section 0
+   \setcounter{section}{-2}
+% Prevent overflowing lines due to hard-to-break entities
+    \sloppy
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+
+    % Slightly bigger margins than the latex defaults
+    \geometry{verbose,tmargin=0.5in,bmargin=0.5in,lmargin=0.5in,rmargin=0.5in}
+
+
+\begin{document}
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{general-relativity-problems-chapter-6-curved-manifolds}{%
+\section{General Relativity Problems Chapter 6: Curved
+Manifolds}\label{general-relativity-problems-chapter-6-curved-manifolds}}
+
+\hypertarget{authors-gabriel-m-steward}{%
+\subsection{Authors: Gabriel M
+Steward}\label{authors-gabriel-m-steward}}
+
+    https://github.com/zachetienne/nrpytutorial/blob/master/Tutorial-Template\_Style\_Guide.ipynb
+
+Link to the Style Guide. Not internal in case something breaks.
+
+    \hypertarget{nrpy-source-code-for-this-module}{%
+\subsubsection{\texorpdfstring{ NRPy+ Source Code for this
+module:}{ NRPy+ Source Code for this module:}}\label{nrpy-source-code-for-this-module}}
+
+None!
+
+\hypertarget{introduction}{%
+\subsection{Introduction:}\label{introduction}}
+
+Are we finally giong to get to actual curved space? Will the land of
+special relativity be left behind at long last? We've certainly spent a
+lot of work building up to this point\ldots{}
+
+\hypertarget{other-optional}{%
+\subsection{\texorpdfstring{ Other
+(Optional):}{ Other (Optional):}}\label{other-optional}}
+
+Placeholder.
+
+\hypertarget{note-on-notation}{%
+\subsubsection{Note on Notation:}\label{note-on-notation}}
+
+Any new notation will be brought up in the notebook when it becomes
+relevant.
+
+\hypertarget{citations}{%
+\subsubsection{Citations:}\label{citations}}
+
+All citations will be collected here.
+
+    \hypertarget{table-of-contents}{%
+\section{Table of Contents}\label{table-of-contents}}
+
+\[\label{toc}\]
+
+\hyperref[p1]{Problem 1} (What are Manifolds?)
+
+\hyperref[p2]{Problem 2} (Manifold Metrics)
+
+\hyperref[p3]{Problem 3} (Proof of Metric Transform's Existence)
+
+\hyperref[p4]{Problem 4} (Local Flatness Theorem)
+
+\hyperref[p5]{Problem 5} (Curved and Flat Christoffel Coefficients)
+
+\hyperref[p6]{Problem 6} (A Vanishing Proof)
+
+\hyperref[p6]{Problem 6} (A Vanishing Proof)
+
+\hyperref[latex_pdf_output]{PDF} (turn this into a PDF)
+
+    \hypertarget{problem-1-back-to-top}{%
+\section{\texorpdfstring{Problem 1 {[}Back to
+\hyperref[toc]{top}{]}}{Problem 1 {[}Back to {]}}}\label{problem-1-back-to-top}}
+
+\[\label{P1}\]
+
+\emph{Decide if the following sets are manifolds and say why. If there
+are any exceptional points at which the sets are not manifolds, give
+them:}
+
+\emph{a) Phase space of Hamiltonian mechanics, the space of the
+canonical coordinates and momenta \(p_i\) and \(q^i\)}
+
+    A manifold is best thought of as just a parameterizable space. The space
+of coordinates and momentum are perfectly fine in this way, and are in
+fact often mapped to cartesian grids in the first place. So yes, this is
+a manifold.
+
+    \emph{b) The interior of a circle of unit radius in two-dimensional
+Euclidian space}
+
+Is a manifold everywhere except the center, much like polar coordinates.
+(Note: we are definitely assuming that we can parameterize however we
+want.)
+
+    \emph{c) The set of permutations of n objects.}
+
+This would be a no. Because we need CONTINUOUS parameterization. No
+matter how fancy the set of permutations is, it's still discrete.
+
+    \emph{d) The subset of Euclidean space of two dimensions (coordinates x
+and y) which is a solution to xy\((x^2+y^2-1)\)=0}
+
+Well this is interesting\ldots{}
+
+\begin{figure}
+\centering
+\includegraphics{attachment:Screenshot\%20from\%202022-05-29\%2014-18-43.png}
+\caption{Screenshot\%20from\%202022-05-29\%2014-18-43.png}
+\end{figure}
+
+    The circle by itself can clearly be a manifold (of one dimension too!)
+but the rest? Discontinuities all over the place\ldots{} no, I don't
+think this is a manifold, as trying to parameterize it doesn't seem to
+pan out.
+
+As for a more strict reason why not\ldots{} er\ldots{} So define the
+angle around the circle as one dimension, right? Well, suddenly that
+dimension can't be used if the distance from the origin is anything but
+1--that is, it becomes FOUR DISCRETE VALUES, not continuous.
+
+If we could trace a single line through the shape that covers every
+portion, we would have a way out. However we have four ``exit'' points
+which makes that impossible, meaning we do need two parameters for this
+space, of which no continouous one exists.
+
+    \hypertarget{problem-2-back-to-top}{%
+\section{\texorpdfstring{Problem 2 {[}Back to
+\hyperref[toc]{top}{]}}{Problem 2 {[}Back to {]}}}\label{problem-2-back-to-top}}
+
+\[\label{P2}\]
+
+\emph{Of the manifolds in \textbf{Problem 1}, on which is it customary
+to use a metric, and what is that metric? On which would a metric not
+normally be defined and why?}
+
+First of all the permutaiions and ``sniper shot'' set can be dismissed,
+as they are not manifolds, which just leaves Phase Space and The Circle.
+
+    For Phase Space, it's generally just a cartesian metric, so it's the
+cartesian metric.
+
+For the circle, one would use the radial metric. However, it's not
+actually customary to do this, as most use unit vectors which are
+decidedly not coordinate bases. usually this isn't a problem as
+cartesian circles have identical one forms and vectors so there's no
+need to convert.
+
+((Perhaps later understanding will be gained that makes all of this look
+silly. Maybe the ``sniper shot'' really is a manifold, though clearly a
+metric wouldn't be very helpful as it's not smooth at all anywhere. Look
+at those holes\ldots))
+
+    \hypertarget{problem-3-back-to-top}{%
+\section{\texorpdfstring{Problem 3 {[}Back to
+\hyperref[toc]{top}{]}}{Problem 3 {[}Back to {]}}}\label{problem-3-back-to-top}}
+
+\[\label{P3}\]
+
+\emph{It is well known that for any symmetric matrix A (with real
+entries) ther exists a matrix H for which the matrix \(H^TAH\) is a
+diagonal matrix whos entries are the eigenvalues of A.}
+
+\emph{a) Show that there is a matrix R such that \(R^TH^TAHR\) is the
+same matrix as \(H^TAH\) except with the eigenvalues rearranged in
+ascending order along the main diagonal from top to bottom.}
+
+    So we start by knowing that there is a diagonal matrix. What we need to
+show is that there exists a ``shuffling'' matrix that can re-arrange the
+eigenvalues. Note: we just need to show that one exists. It could be
+anything, and it doesn't have to be ``smart'' about it, that is, it
+doesn't have to \emph{choose} the highest value to go to the highest
+place.
+
+R will be a matrix with 1 and 0 values off the diagonal (or on the
+diagonal if a value is already in the right spot). Note that R itself
+will be a symmetric matrix, using ``1'' values off the edge to swap the
+position of two eigenvalues. If more than one swap needs to be done, R
+can just be a combination of all the matrices required to do the swap.
+
+Good stuff, proven.
+
+    \emph{b) Show that there exists a third matrix such that
+\(N^TR^TH^TAHRN\) is a diagonal matrix whose entries on the diagonal are
+-1,0, or +1.}
+
+    This one's even easier. Let N itself be a diagonal matrix, so that all
+the values are simply diagnonal values multiplied by diagonal values,
+there is no swapping or moving. In this case, transpose matrix
+multiplicaiton is commutative, so we can just make \(N^TN\) = NN. We do
+this so we can define N to be its own transpose and say that the NN
+matrix is just 1/\textbar eigenvalue\textbar{} of every eigenvalue in
+the right position. This will reduce everything into units.
+
+    \emph{c) Show that if A has an inverse, none of the diagonal elements in
+b) is zero.}
+
+If you have a zero eigenvalue, then the determinant is zero, which means
+the matrix has no inverse.
+
+So you have to have all your eigenvalues to be invertible.
+
+    \emph{d) Show from a)-c) that there exists a transformation matrix
+\(\Lambda\) which produces 6.2}
+
+6.2 is just the general metric tensor \(\eta\) with diagonal.
+(-1,1,1,1).
+
+Assuming A is invertible (it better be), then we automatically have a
+way to convert to \((\pm1,\pm1,\pm1,\pm1)\). When building your nice
+transformation matrix, just be sure to add a final matrix to the end:
+one that changes the signs along the diagonal to what we need.
+
+What about the fact that some of our matrices are past the right side?
+We can easily move N across, but what about R and H? All we can really
+say for sure is that there exists a SANDWICH around A that produces the
+correct metric, that is \(L^TAL = \textbf{g}\).
+
+But let's think about what this means, expanding it into tensor
+notation.
+
+\[ L^{\alpha'}_{\beta} A^\beta_{\delta} L^{\delta}_{\gamma'} = L^{\alpha'}_{\beta} L^{\delta}_{\gamma'}  A^\beta_{\delta} \]
+
+    So the quesiton now is, can the actions of the two matrices be done by
+one? The only fact we have is that one is the transpose of the other.
+Playing the game of transposes does nothing.
+
+How on earth does \$ L\^{}T A L = \eta \rightarrow \Lambda A = \eta \$.
+
+All we've proven is that there exists a ``sandwich'' that will transform
+A into the standard metric, not a \textbf{single} matrix.
+
+    Wait, hold on, we're stupid.
+
+The transformation matrix IS NOT USED ONLY ONCE TO TRANSFORM A MATRIX.
+
+The matrix transforms one of the basis vectors.
+
+TO GET A FULL TRANSFORM ANY MATRIX MUST BE USED TWICE. Once for the
+rows, once for the columns.
+
+That's what the transpose notaiton MEANS.
+
+    \hypertarget{problem-4-back-to-top}{%
+\section{\texorpdfstring{Problem 4 {[}Back to
+\hyperref[toc]{top}{]}}{Problem 4 {[}Back to {]}}}\label{problem-4-back-to-top}}
+
+\[\label{P4}\]
+
+\emph{Prove the following results used in the proof of the local
+flatness theorem in Section 6.2}
+
+\emph{a) the number of independent values of
+\(\partial^2x^\alpha/\partial x^{\gamma'} \partial x^{\mu'}|_0\) is 40}
+
+    We're looking for independent values of a matrix, here. We know we are
+symmetric in \(\gamma\) and \(\mu\) since the order you take derivatives
+in does not matter. For a symmetric 2x2 matrix, there are 10 independnet
+values (4 along the diagonal, 6 off-diagonals).
+
+Simply multiply this by the four indeces on top to get 40.
+
+    \emph{b) the number of independent values of
+\(\partial^3x^\alpha/\partial x^{\lambda'} \partial x^{\mu'} \partial x^{\nu'}|_0\)
+is 80}
+
+    What is the symmetry along a 4x4x4 3D symmetry matrix? We have to look
+at combinations here, every simple two-fold shuffling will be the same.
+So let's just list unique numbers.
+
+000
+
+111
+
+222
+
+333
+
+These are the diagonal, they are independent, and there are four of
+them. Now let's classify all the others:
+
+001 = 010 = 100
+
+110 = 101 = 011
+
+So each combination of two numbers has 3 permutations. We have 10, 12,
+13, 20, 23, 30. That Gives us 12 independent places.
+
+123 = 231 = 312 = 321 = 213 = 132
+
+Every combination of three numbers gives 6 permutation. as there are
+four different combinations of three, we have 4 independent places.
+
+4 + 12 + 4 = 20.
+
+20 differentiated four ways produces 80. As we were supposed to have.
+
+    \emph{c) The corresponding number for
+\(g_{\alpha\beta,\gamma',\mu'}|_0\) is 100}
+
+First of all, on page 150, we see that the metric itself has 10
+independent terms. Why? While it is symmetric, aren't all numbers aside
+from the diagonal zero? Well, no actually, the metric can be transformed
+into many things, not all of which are along the diagonal, but it must
+be symmetric, so we have 10 independent for hte base matric.
+
+The base metric differentiated once is obviously just 10 times 4 = 40.
+
+However, what we want is the metric differentiated \emph{twice}.
+
+Fortunately we know that taking derivatives in eitehr order don't change
+anything, so the ``derivative'' matrix itself is symmetric, arriving at
+10 independent terms.
+
+10 by 10 is 100, and we are done!
+
+    \hypertarget{problem-5-back-to-top}{%
+\section{\texorpdfstring{Problem 5 {[}Back to
+\hyperref[toc]{top}{]}}{Problem 5 {[}Back to {]}}}\label{problem-5-back-to-top}}
+
+\[\label{P5}\]
+
+\emph{a) Prove that
+\(\Gamma^\mu_{\alpha\beta} = \Gamma^\mu_{\beta\alpha}\) in any
+coordinate system in a curved Reimannian space.}
+
+    Actually 5.74 points out that it is already true for ANY coordinate
+system, but lets go through the proof as to why.
+
+To start, we consider an arbitrary scalar field \(\phi\), that is, a
+rule for getting numbers out of every point on some space. Plug in
+various numbers, get a single number out. It's first derivative is a
+one-form: \(\nabla \phi\) with components \(\phi_{,\beta}\), that is to
+day derivatives taken with respect to every single coordinate. We don't
+care how many there are, there could be thousands.
+
+the second covariant derivative \(\nabla\nabla\phi\) has components
+\(\phi_{,\beta ;\alpha}\) and it should be rather obvious that this is a
+\(0\choose2\) tensor. (one form it twice). We do find ourselves asking
+why one of them has a comma and the other a semicolon\ldots{} the
+reason, it turns out, is because first we were differentiating a scalar,
+but the second one had us differentiating a one-form which will always
+add the Christoffel symbol.
+
+Regardless, since this second derivative is a tensor, we note that it is
+the same no matter what basis it is in. Since we can alter the order of
+differentiation and change absolutely nothing in cartesian coordiantes,
+we can alter the order here. So\ldots{}
+
+\(\phi_{,\alpha;\beta} = \phi_{,\beta;\alpha}\)
+
+Now if we expand these we end up with things of the form
+\$\phi\emph{\{,\alpha,\beta\} - \phi}\{,\mu\}
+\Gamma\^{}\mu\emph{\{\beta\alpha\} = \phi}\{,\beta,\alpha\} -
+\phi\emph{\{,\mu\} \Gamma\^{}\mu}\{\alpha\beta\} \$
+
+Of course we ALSO know that the individual derivative terms are also
+always interchangeable in any coordinate system. So that jsut
+leaves\ldots{}
+
+\[ \phi_{,\mu} \Gamma^\mu_{\beta\alpha} = \phi_{,\mu} \Gamma^\mu_{\alpha\beta} \]
+
+Which rather trivially shows that the Christoffel coefficients are the
+same no matter WHAT coordinate system we are in. This hinges on two main
+facts: 1) that derivative order does not matter and 2) tensors are the
+same in every coordinate system.
+
+    \emph{b) Use this to prove that 6.32 can be derived in the same manner
+as in flat space.}
+
+    The derivation, so far as we can tell, is exactly the same since any
+curved space is locally flat. By that rule alone, anything that can have
+a metric assigned to it can have calculated Christoffel coefficietns.
+
+    \hypertarget{problem-6-back-to-top}{%
+\section{\texorpdfstring{Problem 6 {[}Back to
+\hyperref[toc]{top}{]}}{Problem 6 {[}Back to {]}}}\label{problem-6-back-to-top}}
+
+\[\label{P6}\]
+
+\emph{Prove that the first term in 6.37 vanishes.}
+
+6.37: \$ \Gamma\^{}\alpha\emph{\{\mu\alpha\}=\frac12
+g\^{}\{\alpha\beta\} (g}\{\beta\mu,\alpha\} - g\_\{\mu\alpha,\beta\}) +
+\frac12 g\^{}\{\alpha\beta\} g\_\{\alpha\beta,\mu\} \$
+
+    First of all, note that \(g^{\alpha\beta}\) is symmetric by definition.
+
+The term in the parenthesis is antisymmetric in \(\alpha\beta\) since
+when they flip, the two terms essentially swap places. (note: the first
+two indeces on g make no change as g itself is symmetric.) Thus, every
+difference is also going to have it's inverse.
+
+We note that we are summing over the exact antisymmetric indeces, so
+every single value is going to be added to every other one. If the
+magnitudes of both are the same, they cancel. and whatddoyaknow, we
+already established that our leading term was symmetric! So it alllll
+vanishes!
+
+Proof complete.
+
+    \hypertarget{problem-7-back-to-top}{%
+\section{\texorpdfstring{Problem 7 {[}Back to
+\hyperref[toc]{top}{]}}{Problem 7 {[}Back to {]}}}\label{problem-7-back-to-top}}
+
+\[\label{P7}\]
+
+\emph{a) Give the definition of the determinant of a matrix A in terms
+of cofactors of elements.}
+
+    \emph{b) Differentiate the determinant of an arbitrary 2x2 matrix and
+show that it satisfies 6.39}
+
+    \emph{c) Generalize 6.39 (by induction or otherwise) to arbitrary nxn
+matrices.}
+
+    \hypertarget{addendum-output-this-notebook-to-latex-formatted-pdf-file-back-to-top}{%
+\section{\texorpdfstring{Addendum: Output this notebook to
+\(\LaTeX\)-formatted PDF file {[}Back to
+\hyperref[toc]{top}{]}}{Addendum: Output this notebook to \textbackslash LaTeX-formatted PDF file {[}Back to {]}}}\label{addendum-output-this-notebook-to-latex-formatted-pdf-file-back-to-top}}
+
+\[\label{latex_pdf_output}\]
+
+The following code cell converts this Jupyter notebook into a proper,
+clickable \(\LaTeX\)-formatted PDF file. After the cell is successfully
+run, the generated PDF may be found in the root NRPy+ tutorial
+directory, with filename \url{GR-06.pdf} (Note that clicking on this
+link may not work; you may need to open the PDF file through another
+means.)
+
+\textbf{Important Note}: Make sure that the file name is right in all
+six locations, two here in the Markdown, four in the code below.
+
+\begin{itemize}
+\tightlist
+\item
+  GR-06.pdf
+\item
+  GR-06.ipynb
+\item
+  GR-06.tex
+\end{itemize}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{1}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{cmdline\PYZus{}helper} \PY{k}{as} \PY{n+nn}{cmd}    \PY{c+c1}{\PYZsh{} NRPy+: Multi\PYZhy{}platform Python command\PYZhy{}line interface}
+\PY{n}{cmd}\PY{o}{.}\PY{n}{output\PYZus{}Jupyter\PYZus{}notebook\PYZus{}to\PYZus{}LaTeXed\PYZus{}PDF}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GR\PYZhy{}06}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Created GR-06.tex, and compiled LaTeX file to PDF file GR-06.pdf
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+
+\end{Verbatim}
+\end{tcolorbox}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
