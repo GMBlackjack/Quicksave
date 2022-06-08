@@ -392,9 +392,9 @@
     
 
     
-    \hypertarget{general-relativity-problems-chapter-7-physics-in-a-curved-spacetime}{%
-\section{General Relativity Problems Chapter 7: Physics in a Curved
-Spacetime}\label{general-relativity-problems-chapter-7-physics-in-a-curved-spacetime}}
+    \hypertarget{general-relativity-problems-chapter-8-the-einstein-field-equations}{%
+\section{General Relativity Problems Chapter 8: The Einstein Field
+Equations}\label{general-relativity-problems-chapter-8-the-einstein-field-equations}}
 
 \hypertarget{authors-gabriel-m-steward}{%
 \subsection{Authors: Gabriel M
@@ -431,37 +431,22 @@ relevant.
 \hypertarget{citations}{%
 \subsubsection{Citations:}\label{citations}}
 
-{[}1{]}
-https://www.wolframalpha.com/input?i=y\%27\%28x\%29+\%3D+cosx+sinx+y+-+y\%5C\%28tanx\%29+-+1
-(Wolfram likes differential equations.)
+{[}1{]} https://en.wikipedia.org/wiki/Laplace\_operator (Laplacian
+Operator \(\nabla^2\))
+
+{[}2{]} https://www.vedantu.com/physics/derivation-of-orbital-velocity
+(Because we were beings stupid.)
 
     \hypertarget{table-of-contents}{%
 \section{Table of Contents}\label{table-of-contents}}
 
 \[\label{toc}\]
 
-\hyperref[p1]{Problem 1} (A thought experiment)
+\hyperref[p1]{Problem 1} (The Point Particle)
 
-\hyperref[p2]{Problem 2} (Newtonian Metric)
+\hyperref[p2]{Problem 2} (Geometrized Values, Plank Units)
 
-\hyperref[p3]{Problem 3} (Newtonian Metric Christoffel Symbols)
-
-\hyperref[p4]{Problem 4} (g00)
-
-\hyperref[p5]{Problem 5} (The Static Fluid Problem, incomplete)
-
-\hyperref[p6]{Problem 6} (Geodesic Momentum)
-
-\hyperref[p7]{Problem 7} (Playing with Complicated Metrics and Their
-Momentums)
-
-\hyperref[p8]{Problem 8} (Independent Components, Stress-Energy Tensors,
-and Integrals, incomplete)
-
-\hyperref[p9]{Problem 9} (Calculating R and R properties, largely
-skipped.)
-
-\hyperref[p10]{Problem 10} (\textbf{KILLING} vector fields.)
+\hyperref[p3]{Problem 3} (Geometrized Units Calculations)
 
 \hyperref[latex_pdf_output]{PDF} (turn this into a PDF)
 
@@ -471,71 +456,86 @@ skipped.)
 
 \[\label{P1}\]
 
-\emph{If 7.3 were the corret genrealization of 7.1 to a curved
-spacetime, how would you interpret it? What would happen to the number
-of particles in a comoving volume of the fluid, as time evolves? In
-principle, can we distinguish experimetnally between 7.2 and 7.3?}
+\emph{Show that 8.2 is a solution of 8.1 by the following method. Assume
+the point particle to be at the origin r=0 and to produce a spherically
+symmetric field. Then use Gauss' law on a sphere of radius r to
+conclude\ldots{}}
 
-    7.1: \((nU^\alpha)_{,\alpha}=0\)
+\[\frac{d\phi}{dr} = \frac{Gm}{r^2}\]
 
-7.2: \((nU^\alpha)_{;\alpha}=0\)
+\emph{Deduce 8.2 from this. Consider the behavior at infinity.}
 
-7.3: \((nU^\alpha)_{;\alpha}=qR^2\)
+    Right well this seems obvious, but let's write it out in full,
+especially since we don't remember Gauss' law off the top of our head.
+The 4D version given by 4.57 is
 
-The exact value of qR\^{}2 is irrelevant, besides the fact that it
-vanishes in a Lorentz frame as R vanishes there.
+\[ \int V^\alpha_{,\alpha} d^4x = \oint V^\alpha n_\alpha d^3S \]
 
-\(nU^\alpha\) is the particle density times its actual ``speed'' at any
-given reference frame. We know this quantity to be N. The first
-component is the number density, the rest are the flux.
+Which can be reduced to three dimensions if needed without much issue.
 
-7.1 says many things, but one of the things it says is that the flux
-values are constants with respect to all coordinates: they do not
-change. (for something of constant density everywher,e which is what n
-is). No matter where we are or when we are, everything is the same.
+We snote that we start with 8.1, that is, \$ \nabla\^{}2 \phi = 4\pi G
+\rho \$.
 
-7.2 asserts this is true no matter your reference frame or curvature.
+ALWAYS REMMEBER: \(\nabla^2 = \nabla \cdot \nabla\) is the LAPLACIAN. Do
+not think it's some kind of simple double derivative, there's a dot
+product hiding in there. ALSO ALSO it's not exactly normal for SPHERICAL
+COORDINATES. So let's go actually grab it and stop trying to be cute.
+\hyperref[1]{1}
 
-7.3, on the other hand, disagrees, saying that the fluxes do change with
-curvature. This means that while locally it may seem that everything is
-conserved, globally it is not, the values of the fluxes could be
-different at large differences. Also the number density could change.
+\begin{figure}
+\centering
+\includegraphics{attachment:Screenshot\%20from\%202022-06-07\%2009-48-22.png}
+\caption{Screenshot\%20from\%202022-06-07\%2009-48-22.png}
+\end{figure}
 
-The number density is the big thing. Elsewhere, we have a different
-density. This means there have to be \emph{more particles} over there.
-But we established a constant density, so curvature must be
-\emph{creating} particles.
+    (Note that they're using different notation for \(\nabla^2\)) Now, since
+we're spherically symmetric, the angular terms all go away immediately,
+leaving us with just the radial terms. This makes an admittedly somewhat
+strange adjustment to 8.1
 
-This seems like nonsense, to be sure.
+\[ \frac{1}{r^2} \frac{\partial}{\partial r} (r^2 \frac{\partial \phi}{\partial r}) = 4\pi G \rho \]
 
-Depending on the curvature, the number of particles would go up or down
-(we don't know the sign of q). R, however, is squared and always
-positive. So this means curvature can only CREATE or DESTROY particles,
-not both. There would be no ``going back'' afterward.
+    Now one looks at this and says ``wait, that makes the left side zero''
+which of course it does. The density \(\rho\) is not really something we
+have the benefit of using since we havev a point particle in effect and
+would end up with massive discontinuities. But the equation should still
+hold, so we can still do that thing where we integrate both sides over
+all space because hwy not.
 
-Which means we can definitely test it. Just gather a bunch of particles
-and accelerate them to near light speeds and then count them along the
-whole trip.
+\[ \int \frac{1}{r^2} \frac{\partial}{\partial r} (r^2 \frac{\partial \phi}{\partial r}) d^3x = \int 4\pi G \rho d^3x \]
 
-((we understand that virtual particles throw a wrench into this, but
-that usually keeps particle number conserved over large times, so just
-consider them noise.))
+    Now the nice thing about density integrated over all space is that it
+equals m, and everything else on the right side is a cosntant, so
+victory is sweet.
 
-At this juncture all experiments show that particles are in fact
-conserved. As well as all the other conservation laws. Still, though,
-the gradual incerasing or decreasing of particles would be rather
-interesting. Since it can't go back down or up, though, it sure seems
-like that would violate energy conservation\ldots{} and entropy\ldots{}
-and a whole slew of other things.
+\[ \Rightarrow \int \frac{1}{r^2} \frac{\partial}{\partial r} (r^2 \frac{\partial \phi}{\partial r}) d^3x = 4\pi G m \]
 
-Now if there were an alternative 7.3 that could take both positive and
-negative values, then that would be a different story. And something
-like this kind of has to be true, as at any given moment particle number
-in the universe is not conserved. The aforementioned virtual particles
-at black hole horizons kind of throw a wrench into this. (Though that
-theory would involve interactions between particles, which we are
-ignoring right now, and is probably a million times more complicated
-than we realize.)
+We tried to apply Gauss' law here, but we have to rememver that the
+fraction out front depends on r, so it's not that simple, as it's not
+inside a derivative. So we just do it the hard way, it seems.
+Fortunately due to spherical symmetry we do just \emph{know} the angles
+have no influence on the integarl.
+
+\[ \Rightarrow \int \frac{1}{r^2} \frac{\partial}{\partial r} (r^2 \frac{\partial \phi}{\partial r}) r^2sin\theta drd\theta d\phi = 4\pi G m \]
+
+\[  \Rightarrow 4 \pi \int \frac{\partial}{\partial r} (r^2 \frac{\partial \phi}{\partial r}) dr = 4\pi G m \]
+
+And THIS is just an integral of a derivative over the same variable, so
+it all pops out.
+
+\[ \Rightarrow  4 \pi r^2 \frac{\partial \phi}{\partial r} = 4\pi G m \]
+
+\[ \Rightarrow  \frac{\partial \phi}{\partial r} = \frac{G m}{r^2} \]
+
+Which is what we were looking for. We express annoyance, it was much
+easier to solve this once we stopped trying to use Gauss' law.
+
+    Anyway take the antiderivative of both sides, the result is obviuos.
+
+\[ \Rightarrow \phi = -\frac{G m}{r} \]
+
+    The behavior at infinity is a rather quick drop to near-zero that never
+quite reaches it. Which from what we know is how gravity works.
 
     \hypertarget{problem-2-back-to-top}{%
 \section{\texorpdfstring{Problem 2 {[}Back to
@@ -543,27 +543,95 @@ than we realize.)
 
 \[\label{P2}\]
 
-\emph{To first order in \(\phi\), compute \(g^{\alpha\beta}\) for 7.8}
+\emph{a) Derive the following useful conversion factors from the SI
+values of G and c:}
 
-    Ah, 7.8! The ``Newtonian'' metric! 7.8 is rather helpful but we'll write
-it out for reference:
+\[ G/c^2 = 7.425e-28  m/kg = 1 \] \[ c^5/G = 3.629e52 J/s = 1 \]
 
-\[ ds^2 = -(1+2\phi)dt^2 + (1-2\phi)(dx^2+dy^2+dz^2)  \]
+    Just\ldots{} take the SI units and divide them. The result comes out
+trivially.
 
-Which gives us a metric with diagonal
+The units are \(\frac{m^3}{kg s^2} \frac{s^2}{m^2} = \frac{m}{kg}\)
 
-\[(-(1+2\phi),1-2\phi,1-2\phi,1-2\phi)\]
+And for the second \$\frac{m^5}{s^5} \frac{kg s^2}{m^3} =
+\frac{kg m^2}{s^3} = \frac{J}{s} \$
 
-Now we could calculat the inverse metric the long way\ldots{} or we
-could just find this matrix's inverse that returns us to the (-1,1,1,1)
-matrix. Which is actually rather easy, just invert everything.
+    \emph{b) Derive the values in geometerized units of the constants in
+table 8.1 from their given values in SI units.}
 
-\[(-\frac{1}{(1+2\phi)},\frac{1}{1-2\phi},\frac{1}{1-2\phi},\frac{1}{1-2\phi})\]
+Well, at least I can know the answers this time. Even if it is a bit
+bleh.
 
-NOTE: The metrics are inverses of each other, they form the identity,
-NOT the Lorentz metricwhen together. They do convert back and forth
-between the Lorentz metric, but that's when STARTING from the Lorentz
-metric. Be careful.
+For planck's constant the conversion factor is \(G/c^3\) which produces
+a s/kg and has a value of 2.477e-36. Multiplied by the SI for planck's
+constant (or well the modified constant, such is the way with
+\(\hbar\)'s bar.) is 2.613e-70 \(m^2\). The book says 2.612. We say
+close enough.
+
+For the masses, the \(G/c^2\) conversion given above works.
+
+Luminosity is just \(c^5/G\), making all the others trivial, only
+\(\hbar\) needed any actual new work. Remember to actually invert it
+though.
+
+    \emph{c) Express the following quantities in geometerized units}
+
+\emph{i) A density (typical of neutroan stars) \(\rho\) = 1e17
+kg/\(m^3\)}
+
+    This can be multiplied by G directly to get something in 1/\(m^2\),
+specifically 6,674,000 1/\(m^2\)
+
+    \emph{ii) a pressure (also typical of neutron stars) p = 1e33
+kg/m\(s^2\)}
+
+This one evaluates in the exact same way, multiply by G, though the
+results are in 1/\(s^2\) units instead. This is 6.674e22 1\$s\^{}2\$,
+otherwise known as ABSURD.
+
+    \emph{iii) The acceleration of gravity on Earth's surface g=9.8
+m/\(s^2\)}
+
+Apply c by itself. \ldots Feels like we've already done this. 3.269e-8
+1/s
+
+    \emph{iv) The luminosity of a supernova, L=1e41 J/s}
+
+We have the direct conversion \(c^5/G\) worked out for this one already.
+though we do have to ``invert'' it to actually apply it. 2.756e12.
+Unitless.
+
+    \emph{d) Three dimensioned constants in nature are regarded as
+fundamental: c, G, and \(\hbar\). With c=G=1, \(\hbar\) has units
+\(m^2\), so \(\hbar^{1/2}\) defines a fundamental unit of length called
+the Planck length. From table 8.1, we calculate \(\hbar^{1/2}\) =
+1.616e-35. Since this number invovles the fundamental constants of
+relativity, gravitaiton, and quantum theory, many physicists feel that
+this length will play an important role in quantum gravity. Express this
+length in terms of the SI values of c, G, and \(\hbar\). Similarly, use
+the conservation factors to calculate the Planck mass and Planck time,
+fundamental numbers formed from c, G, and \(\hbar\) that have the units
+of mass and time respectively. Compare these fundamental numbers with
+characteristic masses, lengths, and time scales that are known from
+elementary particle theory.}
+
+    Well we ultimately arrived at the altered value of \(\hbar\) with
+G/\(c^3\). So we can declare the value here to be
+
+\[ \sqrt{\frac{G\hbar}{c^3}} \].
+
+now, going from m to s involves a dividing by c.~This becomes:
+
+\[ \sqrt{\frac{G\hbar}{c^5}} \].
+
+now the MASS\ldots{} we need to get a kg out, which implies we need to
+divide by \(G\), which changes our units results from simply m to
+\(kgs^2/m^2\). So we need to multiply again by \(c^2\). Factoring this
+into the square root provides:
+
+\[ \sqrt{\frac{\hbar c}{G}} \].
+
+Which in fact match a quick internet search.
 
     \hypertarget{problem-3-back-to-top}{%
 \section{\texorpdfstring{Problem 3 {[}Back to
@@ -571,97 +639,90 @@ metric. Be careful.
 
 \[\label{P3}\]
 
-\emph{Calculate all the Christoffel symbols for the metric given by 7.8
-to first order in \(\phi\). Assume \(\phi\) is a general function of
-t,x,y,z.}
+\emph{a) Calculate in geometrized units:}
 
-Ah, see, this is more challenging, since now we've got to take
-derivatives of the metric we declared in \textbf{Problem 2} and since we
-know nothing about the actual form of \(\phi\) this could get quite
-ugly. Fortunately we can ignore anything squared or higher in our
-approximation, which is neat.
+\emph{i) The Newtonian potential \(\phi\) of the Sun at the Sun's
+surface, radius 6.960e8 m.}
 
-Anyway, we need derivatives of the metric with respect to everything.
-This is:
+    \(\phi = -\frac{Gm}{r}\)
 
-\[(-2\phi_{,t},-2\phi_{,x},-2\phi_{,y},-2\phi_{,z})\]
+Now the final units of this is \(m^2/s^2\), which can be reduced by the
+conversion factor \(1/c^2\) to a completely dimensionless quantity. We
+do need the solar mass though, 1.989e30 kg. \$-Gm/rc\^{}2 \$ is
+2.122e-6. (unitless)
 
-It actually doesn't matter which element is being used, they're all the
-same in terms of derivative, bizarrely.
+To calculate this directly from an equation m/r, we'd use the conversion
+factor for mass, G/\(c^2\). This is effectively the exact same
+calculation.
 
-And fortunately for us we don't have to calculate derivatives of the
-inverse metric. Yet.
+    \emph{ii) The Newtonian potential \(\phi\) of the Sun at the radius of
+Earth's orbit, r=1AU = 1.496e11 m}
 
-The general formula for the Christoffel symbols are:
+    Simlar calculation to above, 9.872e-9, unitless.
 
-\[ \Gamma^\gamma_{\beta\mu} = \frac{1}{2} g^{\alpha\gamma} (g_{\alpha\beta,\mu} + g_{\alpha\mu,\beta} - g_{\beta\mu,\alpha})  \]
+    \emph{iii) The Newtonian potential \(\phi\) of Earth at its surface,
+radius 6.371e6 m}
 
-Which means we'll have\ldots{} a 4x4x4 result. This is gonna be a spicy
-one.
+    Earth's mass is 5.972e24 kg. By the same calculation we have\ldots{}
 
-    Fortunately the vast majority of these are just going to be zero because
-the metric has a lot of zeroes. We only need concern ourselves with the
-situations where the three inner metrics aren't zero, that is, their
-indeces match. Unfortunately there are still a lot of those. This time
-the bottom coordinates \(\beta\mu\) represent the row/column while the
-top coordinate \(\gamma\) is the matrix itself. Coordinates are in order
-(txyz) or (0123) depending on what system is being used.
+6.960e-10, unitless.
 
-\[ \Gamma^{\gamma}_{\beta\mu} = \begin{bmatrix}
-\frac{\phi_{,t}}{1+2\phi} & \frac{\phi_{,x}}{1+2\phi} & \frac{\phi_{,y}}{1+2\phi} & \frac{\phi_{,z}}{1+2\phi} \\ 
-\frac{\phi_{,x}}{1+2\phi} & -\frac{\phi_{,t}}{1+2\phi} & 0 & 0 \\
-\frac{\phi_{,y}}{1+2\phi} & 0 & -\frac{\phi_{,t}}{1+2\phi} & 0 \\
-\frac{\phi_{,z}}{1+2\phi} & 0 & 0 & -\frac{\phi_{,t}}{1+2\phi}
-\end{bmatrix},\begin{bmatrix}
-\frac{\phi_{,x}}{1-2\phi} & -\frac{\phi_{,t}}{1-2\phi} & 0 & 0 \\ 
--\frac{\phi_{,t}}{1-2\phi} & -\frac{\phi_{,x}}{1-2\phi} & -\frac{\phi_{,y}}{1-2\phi} & -\frac{\phi_{,z}}{1-2\phi} \\
-0 & -\frac{\phi_{,y}}{1-2\phi} & \frac{\phi_{,x}}{1-2\phi} & 0 \\
-0 & -\frac{\phi_{,z}}{1-2\phi} & 0 & \frac{\phi_{,x}}{1-2\phi}
-\end{bmatrix},\begin{bmatrix}
-\frac{\phi_{,y}}{1-2\phi} & 0 & -\frac{\phi_{,t}}{1-2\phi} & 0 \\ 
-0 & \frac{\phi_{,y}}{1-2\phi} & -\frac{\phi_{,x}}{1-2\phi} & 0 \\
--\frac{\phi_{,t}}{1-2\phi} & -\frac{\phi_{,x}}{1-2\phi} & -\frac{\phi_{,y}}{1-2\phi} & -\frac{\phi_{,z}}{1-2\phi} \\
-0 & 0 & -\frac{\phi_{,z}}{1-2\phi} & \frac{\phi_{,y}}{1-2\phi}
-\end{bmatrix},\begin{bmatrix}
-\frac{\phi_{,z}}{1-2\phi} & 0 & 0 & -\frac{\phi_{,t}}{1-2\phi} \\ 
-0 & \frac{\phi_{,z}}{1-2\phi} & 0 & -\frac{\phi_{,x}}{1-2\phi} \\
-0 & 0 & \frac{\phi_{,z}}{1-2\phi} & -\frac{\phi_{,y}}{1-2\phi} \\
--\frac{\phi_{,t}}{1-2\phi} & -\frac{\phi_{,x}}{1-2\phi} & -\frac{\phi_{,y}}{1-2\phi} & -\frac{\phi_{,z}}{1-2\phi}
-\end{bmatrix}
-\]
+    \emph{iv) The velocity of Earth in its orbit around the sun.}
 
-    And there they all. All of them. We suspect that in a known field many
-of the derivatives will vanish.
+From memory we know this is about 30km/s or 30,000 m/s, which when
+divided by lightspeed is 0.0001.
 
-Apparently the book considers ``to first order'' approximations to
-include removing the fraction since phi is small. Which is fine, 1
-dominates, but methinks that's not a very strict definition of ``to
-first order.''
+    \emph{b) You should have found that your answer to ii) was larger than
+iii). Why, then, do we on Earth feel Earth's gravitational pull much
+more than the Sun's?}
 
-\[ \Gamma^{\gamma}_{\beta\mu} = \begin{bmatrix}
-\phi_{,t} & \phi_{,x} & \phi_{,y} & \phi_{,z} \\ 
-\phi_{,x} & -\phi_{,t} & 0 & 0 \\
-\phi_{,y} & 0 & -\phi_{,t} & 0 \\
-\phi_{,z} & 0 & 0 & -\phi_{,t}
-\end{bmatrix},\begin{bmatrix}
-\phi_{,x} & -\phi_{,t} & 0 & 0 \\ 
--\phi_{,t} & -\phi_{,x} & -\phi_{,y} & -\phi_{,z} \\
-0 & -\phi_{,y} & \phi_{,x} & 0 \\
-0 & -\phi_{,z} & 0 & \phi_{,x}
-\end{bmatrix},\begin{bmatrix}
-\phi_{,y} & 0 & -\phi_{,t} & 0 \\ 
-0 & \phi_{,y} & -\phi_{,x} & 0 \\
--\phi_{,t} & -\phi_{,x} & -\phi_{,y} & -\phi_{,z} \\
-0 & 0 & -\phi_{,z} & \phi_{,y}
-\end{bmatrix},\begin{bmatrix}
-\phi_{,z} & 0 & 0 & -\phi_{,t} \\ 
-0 & \phi_{,z} & 0 & -\phi_{,x} \\
-0 & 0 & \phi_{,z} & -\phi_{,y} \\
--\phi_{,t} & -\phi_{,x} & -\phi_{,y} & -\phi_{,z}
-\end{bmatrix}
-\]
+    REFERENCE FRAMES! We do actually move with the sun's gravity--because we
+keep moving in the same path the Earth does around the Sun! It just
+pulls on us at more-or-less the exact same strength it pulls on Earth
+everywhere, so there's no distinct difference we notice from its
+presence or if it was absent. We are free-falling around the Sun, but
+there's nothing to stop us and thus no force we feel.
 
-    Random factoid: determinant g is equal to \(1-8\phi\).
+Earth's ground, meanwhile, is actively opposing our freefall, and thus
+we feel it.
+
+    \emph{c) Show that a circular orbit around a body of mass M has an
+orbital velocity, in Newtonian theroy, of \(\textbf{v}^2 = -\phi\),
+where \(\phi\) is the Newtonian potential.}
+
+    First of all our speed for earth indicates we had an estimate
+here\ldots{} or that Earth's not on a circular orbit, or that other
+things influence it, whatever. Anyway, let's derive this rule for
+circular orbits in general. In a circular orbit, \(\phi\) is constant in
+the radially inward direction.
+
+Consider the polar geodesic of a circle, which we can reprsent by
+\((cos\theta, sin\theta)\), with \(\theta\) being our parameter. The
+force always pulls toward the center, that is, precisely
+\((-\phi cos\theta, -\phi sin\theta)\) Assuming clockwise orbit, the
+velocity vector in a circular orbit always points at a 90 degree angle,
+or \((vsin\theta, -vcos\theta)\)
+
+We need to correlate these two things, somehow, but right now they could
+be anything.
+
+F magnitude is equal to the change in momentum magnitude, which is
+\(m\delta v.\)
+
+So we take the derivative of v and find the magnitude. The derivative is
+\((vcos\theta, vsin\theta)\), and the magnitude of this is just flat-out
+v. F=mv\ldots? That's not right\ldots{}
+
+Feeling stupid we went and looked up the derivation for this ELEMENTARY
+PROBLEM.
+
+\ldots Yes we were being stupid, we were trying to use the information
+we had in this chapter and not just use the math of circular motion
+which would make everything so much easier. \hyperref[2]{2}
+
+Anyway jsut correlate the known gravitaitonal force and centripedal
+acceleration GMm/\(r^2\) = m\(v^2\)/r and get the wonderous result of
+\(v = \sqrt{\frac{GM}{r}}\) which is exactly what we sought.
 
     \hypertarget{problem-4-back-to-top}{%
 \section{\texorpdfstring{Problem 4 {[}Back to
@@ -669,829 +730,48 @@ first order.''
 
 \[\label{P4}\]
 
-\emph{Verify that hte results 7.15 and 7.24 depend only on \(g_{00}\),
-the form of \(g_{xx}\) doesn't affect them, as long as it is
-1+O(\(\phi\)).}
-
-    This is essentially the same as asking for the dependence of the
-Christoffel symbols. For instance\ldots{}
-
-7.15: \(\frac{d}{d\tau} p^0 = -m \frac{\partial \phi}{\partial \tau}\)
-
-This was derived from a Christoffel symbol of \(\Gamma^0_00\). As we saw
-in \textbf{Problem 3}, this is calculated from
-
-\[ \Gamma^\gamma_{\beta\mu} = \frac{1}{2} g^{\alpha\gamma} (g_{\alpha\beta,\mu} + g_{\alpha\mu,\beta} - g_{\beta\mu,\alpha})  \]
-
-\[ \Rightarrow \Gamma^0_{0} = \frac{1}{2} g^{00} (g_{00,0} + g_{00,0} - g_{00,0})  \]
-
-Which obviously only includes the metric's 00. (The inverse metric can
-be calculated from it directly).
-
-7.24 relies instead on \(\Gamma^i_{00}\). It's rather self evident that
-the normal g-metrics all cancel unless they are 00. HOWEVER\ldots{} the
-inverse metric \emph{does} matter. Now, its term cannot be derived from
-\(g_00\), and is in fact the inverse of whatever xx, yy, zz. While the
-inverse metric does appear to vanish, it still carries with it hte
-\emph{sign} of those components.
-
-In fact this is even directly shown in equation 7.20, where the inverse
-metric is calculated. It provides a positive sign, while for the t-value
-it would be negative.
-
-\ldots That said in the actual limit we're discussion, that of the first
-order, then we're actually fine, seeing as \emph{all} the matrix values
-an be argued to depend only on \(g_00\) as all their values are
-correlated to derivatives of it. But that seems to be more a trick of
-fate than anything.
-
-    \hypertarget{problem-5-back-to-top}{%
-\section{\texorpdfstring{Problem 5 {[}Back to
-\hyperref[toc]{top}{]}}{Problem 5 {[}Back to {]}}}\label{problem-5-back-to-top}}
-
-\[\label{P5}\]
-
-\emph{a) For a perfect fluid, verify that the spatial components of 7.6
-in the Newtonian limit reduce to
-\(\textbf{v}_{,t} + (\textbf{v}\cdot \nabla)\textbf{v} + \nabla p/\rho + \nabla \phi = 0\)
-for the metric 7.8. This is known as Euler's equation for
-nonrelativistic fluid flow in a gravitaitonal field. You will need to
-use 7.2 to get this result.}
-
-    7.6 is the statement of the conservation of four-monentum, given by
-
-\[ T^{\mu\nu}_{;\nu}=0 \]
-
-\[ T^{\mu\nu} = (\rho + p)U^\mu U^\nu + pg^{\mu\nu} \]
-
-A hint on page 177 points out that in the nonrelativistic limit, v has
-to be small, and p \textless\textless{} \(\rho\) since the individual
-constituent particles also have to be moving slowly in relation to each
-other.
-
-7.2 is \((nU^\alpha)_{;\alpha}=0\)
-
-Let's not assume that n is a constant, at least not at first.
-
-\[ n_{;\alpha}U^\alpha + nU^\alpha_{;\alpha} =0 \]
-
-For this part, we only care about the spatial components, however we do
-end up with a time derivative so we shall not ignore the variety of
-potential sums here.
-
-The inverse metric is already known from previous problems, time
-component \(-\frac{1}{1+2\phi}\) and space components
-\(\frac{1}{1-2\phi}\). (along the diagonal, all else is zero).
-
-    So now we take the covariant derivative. Funny thing, the covariant
-derivative of any metric component is guaranteed to be zero, but because
-we have a p out front it doesn't just simply vanish. We also set
-\(\mu = i\) to remind ourselves we are only computing the physical
-section. So the covariant derivative of our term becomes\ldots{}
-
-\[ T^{i\nu}_{\nu} = \left[ (\rho + p)U^i U^\nu + pg^{i\nu} \right]_{,\nu} + \left[ (\rho + p)U^\alpha U^\nu + pg^{\alpha\nu} \right]\Gamma^i_{\alpha\nu} + \left[ (\rho + p)U^i U^\alpha + pg^{i\alpha} \right]\Gamma^\nu_{\alpha\nu} \]
-
-\[  = \left[ (\rho + p)U^i U^\nu \right]_{,\nu} + \left[ (\rho + p)U^\alpha U^\nu \right]\Gamma^i_{\alpha\nu} + \left[ (\rho + p)U^i U^\alpha \right]\Gamma^\nu_{\alpha\nu} + \left[pg^{i\nu} \right]_{,\nu} + \left[pg^{\alpha\nu} \right]\Gamma^i_{\alpha\nu} + \left[pg^{i\alpha} \right]\Gamma^\nu_{\alpha\nu} \]
-
-Split up everything using the product rule.
-
-\[ = (\rho_{,\nu} + p_{,\nu})U^i U^\nu + (\rho + p)U^i_{,\nu} U^\nu  + (\rho + p)U^i U^\nu_{,\nu}  + \left[ (\rho + p)U^\alpha U^\nu \right]\Gamma^i_{\alpha\nu} + \left[ (\rho + p)U^i U^\alpha \right]\Gamma^\nu_{\alpha\nu} + p_{,\nu}g^{i\nu} + pg^{i\nu}_{,\nu} + \left[pg^{\alpha\nu} \right]\Gamma^i_{\alpha\nu} + \left[pg^{i\alpha} \right]\Gamma^\nu_{\alpha\nu} \]
-
-The last three terms are just the expansion of a covariant derivative of
-a metric, it has to be zero, cut all of them off.
-
-\[ = (\rho_{,\nu} + p_{,\nu})U^i U^\nu + (\rho + p)U^i_{,\nu} U^\nu  + (\rho + p)U^i U^\nu_{,\nu}  + \left[ (\rho + p)U^\alpha U^\nu \right]\Gamma^i_{\alpha\nu} + \left[ (\rho + p)U^i U^\alpha \right]\Gamma^\nu_{\alpha\nu} + p_{,\nu}g^{i\nu}\]
-
-    Now at this point we have to remind ourselves what \(\rho\) and p
-represent. p = mU (the magnitude of U, not the components, we want to be
-clear), and \(\rho = mn\). The n is important, since it's part of the
-7.2 relation we have. n and U may not be constant, however, m is. m is
-the mass per particle and as we're assuming a perfect fluid each
-particle has to have the same amount, so we can pull this m out of
-everything we might want. (Thus it is perfectly fine not to split up
-\(\rho\) and p into components). Because of this, 7.2 implies:
-
-\[ \rho_{;\alpha}U^\alpha + \rho U^\alpha_{;\alpha} =0 \]
-
-\(\rho\) is a scalar so there's no need to apply the derivative
-expansion to it. (?). However, U is a vector, so it can be split here.
-
-\[ \rho_{,\alpha}U^\alpha + \rho U^\alpha_{,\alpha} + \Gamma^\alpha_{\mu\alpha}U^\mu =0 \]
-
-    Now we do actually have this form in existence in our above relation,
-but it isn't exactly obvious where it is. So let's split everything up.
-
-\[ = \rho_{,\nu}U^i U^\nu + p_{,\nu}U^i U^\nu + \rho U^i_{,\nu} U^\nu + pU^i_{,\nu} U^\nu  + \rho U^i U^\nu_{,\nu} + pU^i U^\nu_{,\nu}  + \rho U^\alpha U^\nu \Gamma^i_{\alpha\nu} + pU^\alpha U^\nu \Gamma^i_{\alpha\nu} + \rho U^i U^\alpha \Gamma^\nu_{\alpha\nu} + pU^i U^\alpha \Gamma^\nu_{\alpha\nu} + p_{,\nu}g^{i\nu}\]
-
-    With \(\alpha = \nu\) we can find every term we want multiplied by a
-\(U^i\). Remove them.
-
-\[ = p_{,\nu}U^i U^\nu + \rho U^i_{,\nu} U^\nu + pU^i_{,\nu} U^\nu + pU^i U^\nu_{,\nu}  + \rho U^\alpha U^\nu \Gamma^i_{\alpha\nu} + pU^\alpha U^\nu \Gamma^i_{\alpha\nu} + pU^i U^\alpha \Gamma^\nu_{\alpha\nu} + p_{,\nu}g^{i\nu}\]
-
-    Now we can actually extract two of the terms we want out of this if we
-just divide through by \(\rho\).
-
-\[ = \frac1\rho p_{,\nu}U^i U^\nu + U^i_{,\nu} U^\nu + \frac1\rho pU^i_{,\nu} U^\nu + \frac1\rho pU^i U^\nu_{,\nu}  + U^\alpha U^\nu \Gamma^i_{\alpha\nu} + \frac1\rho pU^\alpha U^\nu \Gamma^i_{\alpha\nu} + \frac1\rho pU^i U^\alpha \Gamma^\nu_{\alpha\nu} + \frac{p_{,\nu}}{\rho}g^{i\nu}\]
-
-Note that the two terms without fractions in front can be combined into
-a covariant derivative.
-
-\[ = \frac1\rho p_{,\nu}U^i U^\nu + U^i_{;\nu} U^\nu + \frac1\rho pU^i_{,\nu} U^\nu + \frac1\rho pU^i U^\nu_{,\nu}  + \frac1\rho pU^\alpha U^\nu \Gamma^i_{\alpha\nu} + \frac1\rho pU^i U^\alpha \Gamma^\nu_{\alpha\nu} + \frac{p_{,\nu}}{\rho}g^{i\nu}\]
-
-The second term is, if we apply the spatial limitation, \$ v\_\{,t\} +
-(v\cdot \nabla)v\$, and if we apply the spatial limitation on the last
-term it becomes simply \(\nabla p/\rho\) since the metric is locally
-\(\eta\). This is almost everything in the relation we need, we're just
-missing the peasky \(\nabla \phi\) term.
-
-However, we've got a lot of extra terms. We note that p
-\textless\textless{} \(\rho\) and we have a lot of p/\(\rho\) terms,
-which naturally will be \emph{really} small compared to everything else.
-So let's just remove all those terms.
-
-\[ = \frac1\rho p_{,\nu}U^i U^\nu + U^i_{;\nu} U^\nu + \frac{p_{,\nu}}{\rho}g^{i\nu}\]
-
-    Now, all our hopes rest on pulling a \(\phi\) out of that first term,
-somehow. However, we do know \(\phi\) is inherently tied to change in
-momentum, so we have a chance. We can actually associate this all with
-the definition of the geodesic and arrive at:
-
-\[ = \frac1\rho U^i \frac{dp^\alpha}{d\tau} + U^i_{;\nu} U^\nu + \frac{p_{,\nu}}{\rho}g^{i\nu}\]
-
-Which means we probably should have treated p as a vector this entire
-time\ldots{} but changing our derivatives to covariant derivatives on p
-doesn't acutally change anything about our algebra up to this point.
-Regardless, this becomes via 7.24:
-
-\[ = - \frac1\rho U^i m \phi_{,\alpha} + U^i_{;\nu} U^\nu + \frac{p_{,\nu}}{\rho}g^{i\nu}\]
-
-\[ = - \frac1n U^i \phi_{,\alpha} + U^i_{;\nu} U^\nu + \frac{p_{,\nu}}{\rho}g^{i\nu}\]
-
-Which\ldots{} yeah not quite right. Maybe p isn't supposed to be treated
-as a vector, which leads to some ratehr unnerving questions as to how to
-correlate it to \(\phi\)\ldots{}
-
-Return to this agian tomorrow.
-
-    \emph{b) Examine the time component of 7.6 under the same assumptions
-and interpret each term.}
-
-    \emph{c) 7.38 implies that a static fluid (v=0) in a static Newtonian
-gravitaitonal field obeys the equation of hydrostatic equlibrium.
-\(\nabla p + \rho \nabla \phi = 0\). A metric tensor is said to be
-static if there exists coordisnates in which \(\vec e_0\) is timelike,
-\(g_{i0}=0\), and \(g_{\alpha\beta,0}=0\). Deduce from 7.6 that a static
-fluid \((U^i=0, p_{,0}=0, etc)\) obeys the relativistic equation of
-hydrostatic equilibrium}
-
-\[ p_{,i} + (\rho + p) \left[ \frac12 ln(-g_{00}) \right]_{,i} = 0 \]
-
-    
-
-    \emph{d) This suggests that, at least for static situations, there is a
-close relation between \(g_{00}\) and \(-exp(2\phi)\), where \(\phi\) is
-the Newtonian potential for a similar physical situation. Show that 7.8
-and \textbf{Problem 4} are consistent with this.}
-
-    \hypertarget{problem-6-back-to-top}{%
-\section{\texorpdfstring{Problem 6 {[}Back to
-\hyperref[toc]{top}{]}}{Problem 6 {[}Back to {]}}}\label{problem-6-back-to-top}}
-
-\[\label{P6}\]
-
-\emph{Deduce 7.25 from 7.10}
-
-    7.10: \(\nabla_{\vec p} \vec p = 0\)
-
-7.25: \(p^\alpha p_{\beta;\alpha} = 0\)
-
-Here we go!
-
-\[ \nabla_{\vec p} \vec p \] \[ = p^\beta p^\alpha_{;\beta} \]
-
-Ooooh, the index is in the wrong spot. This suddenly became interesting.
-
-While it looks complicated, it's actually not. Just transform both sides
-of the equality using a metric.
-
-\[  g_{\alpha\nu} p^\beta p^\alpha_{;\beta} = g_{\alpha\nu}(0)\]
-
-\[  p^\beta p_{\alpha;\beta} = 0 \]
-
-Tah-dah! While they definitely aren't equal to each other in an exact
-sense (one is a zero one-form and one is a zero vector) they do both
-evaluate to zero.
-
-    \hypertarget{problem-7-back-to-top}{%
-\section{\texorpdfstring{Problem 7 {[}Back to
-\hyperref[toc]{top}{]}}{Problem 7 {[}Back to {]}}}\label{problem-7-back-to-top}}
-
-\[\label{P7}\]
-
-\emph{Consider the following four different metrics, as given by their
-line elements.}
-
-\emph{i) \(ds^2 = -dt^2+dx^2+dy^2+dz^2\)}
-
-\emph{ii)
-\(ds^2 = -(1-2M/r)dt^2+(1-2M/r)^{-1}dr^2+r^2(d\theta^2+ sin^2\theta d\phi^2)\),
-where M is a constant.}
-
-\emph{iii)
-\(ds^2 = -\frac{\Delta - a^2sin^2\theta}{\rho^2}dt^2 - 2a\frac{2Mrsin^2\theta}{\rho^2}dtd\phi + \frac{(r^2+a^2)^2-a^2\Delta sin^2\theta}{\rho^2}sin^2\theta d\phi^2 + \frac{\rho^2}{\Delta}dr^2 + \rho^2 d\theta^2\),
-where M and a are constants and we have introduced the shorthand
-notation \(\Delta = r^2-2Mr+a^2 ; \rho^2 = r^2+a^2cos^2\theta\)}
-
-\emph{iv)
-\(ds^2 = -dt^2 + R^2(t)[(1-kr)^{-1}dr^2 + r^2(d\theta^2 + sin^2\theta d\phi^2)]\)
-where k is a cosntant and R(t) is an arbitrary function of t alone.}
-
-\emph{The first one should be familiar by now. We shall encounter the
-other three in later chapters. Their names are, respectively, the
-Schwarzschild, Kerr, and Robertson-Walker metrics.}
-
-\emph{a) For each metric find as many conserved components
-\(\rho_\alpha\) of a freely falling particle's four momentum as
-possible.}
-
-    This relies entirely on the evaluation of 7.29
-
-\[ m \frac{dp_\beta}{d\tau} = \frac12 g_{\nu\alpha,\beta} p^\nu p^\alpha\]
-
-That is, the momentum is conserved if the term on the right is zero.
-Which means that if every term of the metric is independent of that
-variable.
-
-In the case of i), every single term depends on no variables whatsoever.
-Thus, all four terms of the four momentum are conserved. Which it BETTER
-be since energy conservation is a pretty important part of the standard
-theory.
-
-Note--for latter options, be careful, just because not all of them are
-dependent doesn't mean the metrics don't always cancel. Check for
-canceling.
-
-    In the case of ii), as we are time independent in every case, \(p_t\) is
-conserved, meaning we can apply a conservation of energy. However,
-r-momentum and \(\theta\)-momentum are not conserved. Curiously,
-\(\phi\)-momentum IS conserved, none of the components depend on it.
-Fascinating. No opportunity for canceling as everything is unique and
-along the diagonal.
-
-\begin{enumerate}
-\def\labelenumi{\roman{enumi})}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  Likes to hide in complexity, but it might help to assign dependencies
-  to the ``compressed'' objects. \(\Delta\) only has dependence on r.
-  \(\rho\) has dependence on both r and \(\theta\). Even though some
-  terms are on the off-diagonal, we do have to consider them as we use
-  all of them here. Nothing depends on t, so energy conservation
-  applies. everything depends on r, so that's not conserved. Everything
-  also depends on \(\theta\). Once again, though, \(\phi\)-momentum is
-  conserved.
-\end{enumerate}
-
-Now, we consider canceling, as we do in fact have some off-diagonal
-terms. However, the diagonal terms are still terrible and kill both r
-and \(\theta\) each and every time.
-
-\begin{enumerate}
-\def\labelenumi{\roman{enumi})}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  for once, energy is not conserved, as we have a pretty clear time
-  dependence. And an r dependence. And there's \(\theta\) dependence.
-  But again there is NOT \(\phi\) dependence! \(\phi\) just likes to be
-  conserved, it seems.
-\end{enumerate}
-
-Cancelation \emph{almost} occurs for r, and if k = \(1+sin^2\theta\) it
-actually would. But sadly it does not.
-
-    \emph{b) Use the result of \textbf{Problem 6-28} to put i) in the form
-\(i') ds^2 = -dt^2 + dr^2 + r^2(d\theta^2 + sin^2\theta d\phi^2)\). From
-this, argue that ii) and iv) are spherically symmetric. Does this
-increase the number of conserved components \(p^\alpha\)?}
-
-    Well we know the cartesian spherical metric is
-\((1,r^2,r^2sin^2\theta)\). Naturally the portion of it in the time
-metric must retain the transformation, so it becomes
-\((-1,1,r^2,r^2sin^2\theta)\).
-
-If we used the full metric we would have to add t-dependency to the
-relations in the matrix, but in Minowski spacetime the components are
-independent of time, so this produces a bunch of zeroes. t=t so the
-transformation for the time component is just 1, so it leaves -1.
-
-This obviously indicates that if we ignored the t and r components fir
-ii) and iv) they reduce to the spherical shell metric; absolutely in the
-case of ii), and with an added time dependence R(t) in the case of iv).
-This would arguably demand that \(\theta\)-momentum be conserved as well
-for both of them. Does this mean that 7.29 is not a guarantee of finding
-\emph{all} conserved quantities?
-
-Unfortunately this couldn't be true, for a nonzero derivative indicates
-change, and the restricted-to-shell coordinates do not have any other
-\(\theta\) dependencies to reduce it to zero. Perhaps, then, the
-momentum components at that point themselves cancel to zero?
-\(p^\phi p^\phi = 0\)? But this would only be true if the particle
-wasn't moving in the \(\phi\) direction, and we're looking for a general
-case. Thus, even though the potentials are spherically symmetric,
-momentum is not always conserved along said shell.
-
-This implies it is also true for Minkowski space, that
-\(\theta\)-momentum is not conserved.
-
-We can actually visually think of why this is. Momentum is conserved in
-a circular orbit, that we know without question. A circular orbit is
-effectively a geodesic along a spherical shell space. Howeever, if we
-were to model that orbit at a 45 degree angle, it has to \emph{change
-direction} in \(\theta\) to complete its orbit. Meanwhile in \(\phi\) it
-keeps going the same direction at the same rate. (Imagine viewing a
-clock from above, then tilting it left or right. it still goes around
-the center at the same rate in terms of \(\phi\).)
-
-So what actually happens is we \emph{Decreased} the conserved components
-of i)! In fact, r-momentum is no longer conserved either. This is a
-little less obvious as to why, for a circular geodesic maintains zero
-r-momentum, and a line going directly away also maintains r-momentum.
-Our method of ``Defining a well known geodesic that clarly violates the
-result'' may not work here. It does make sense, though, as ostensibly
-eliptical orbits are geodesics that clearly increase and decrease r,
-obviously not keepin the component conserved.
-
-One things that Kepler's Second Law (the one about sweeping out equal
-areas) might be related to \(\phi\)-momentum conservation.
-
-    \emph{c) It can be shown that for i') and ii)-iv), a geodesic that
-begins with \(\theta = \pi/2\) and \(p^\theta = 0\) - i.e., one which
-begins tangent to the equatorial plane - always has \(\theta = \pi/2\)
-and \(p^\theta = 0\). For cases i'), ii), and iii), use the equation
-\(\vec p \cdot \vec p = -m^2\) to solve for p\^{}r in terms of m, other
-conserved quantities, and known functions of position.}
-
-    The dot product uses the metric! Since we don't have to worry about
-\(\theta\) let's just use the general metric and we get:
-
-\[g_{tt} (p^t)^2 + g_{rr} (p^r)^2 + g{\phi\phi} (p^\phi)^2 = m^2\]
-\[\Rightarrow g_{rr} (p^r)^2 +  = m^2 - g{\phi\phi} (p^\phi)^2 - g_{tt} (p^t)^2 \]
-\[\Rightarrow (p^r)^2 +  = \frac{m^2 - g{\phi\phi} (p^\phi)^2 - g_{tt} (p^t)^2}{g_{rr}} \]
-
-Now this is the general solution for i'), ii), and it would work for iv)
-as well if t were conserved.
-
-However, iii) throws its wrench into it all since it's all ``hey I have
-off diagonal terms!'' So we need to treat it separately.
-
-Fortunately the form is exactly the same, we just need to add an extra
-term.
-
-\[(p^r)^2 +  = \frac{m^2 - g{\phi\phi} (p^\phi)^2 - g_{tt} (p^t)^2 - 2g_{t\phi}p^tp^\phi}{g_{rr}} \]
-
-Notably there are two copies because all metrics are symmetric.
-
-Yes, these could be simplified. Yes, they coudl be fully substituted.
-But that would be tedius and not lead to much in the way of insights,
-since the only metric we have context for is i'). Which, by the way,
-becomes:
-
-\[\Rightarrow (p^r)^2 +  = m^2 - r^2sin^2\theta (p^\phi)^2 + (p^t)^2\]
-
-    \emph{d) For iv) spherical ysmmetry implies that if a geodesic begins
-with \(p^\theta = p^\phi = 0,\) these remain zero. Use this to show from
-7.29 that when k=0, \(p_r\) is a conserved quantity.}
-
-    Now this is trivial. With two components of p being zero, the only parts
-of 7.29 that matter are the tt and rr terms, -1 and
-\(R^2(t)(1-kr^2)^{-1}\). If k=0, the r dependence vanishes, and thus r
-is conserved.
-
-    \hypertarget{problem-8-back-to-top}{%
-\section{\texorpdfstring{Problem 8 {[}Back to
-\hyperref[toc]{top}{]}}{Problem 8 {[}Back to {]}}}\label{problem-8-back-to-top}}
-
-\[\label{P8}\]
-
-\emph{Suppose that in some coordinate system the components of the
-metric \(g_{\alpha\beta}\) are independent of some coordinate \(x^\mu\)}
-
-\emph{a) Show that the conservation law \(T^\nu_{\mu;\nu}\) for any
-stress-energy tensor becomes}
-
-\[ \frac{(\sqrt{-g} T^\nu_\mu)_{,\nu}}{\sqrt{-g}} = 0 \]
-
-    First of all, we have this exact relation already proven for from
-\textbf{Problem 6-34c} for antisymmetric ``double up'' Tensors. (aka,
-double ``vector'' tensor, or just \(2\choose0\).) Does the argument
-still hold for symmetric \(1\choose1\) tensors? (The stress-energy
-tensor is in fact symmetric)
-
-The answer is\ldots{} kinda! Because the covariant derivative of a
-\(1\choose1\) tensor is of the form \(B' + \Gamma B - \Gamma B\), while
-\(2\choose0\) is \(B' + \Gamma B + \Gamma B\). Which means that all the
-``by symmetry'' arguments come out to be ``by antisymmetry''
-EXCEPT\ldots{} the argument was that one term self-canceled. So now we
-have to worry about that instead.
-
-So let's write it out:
-\(T^{\nu}_{\mu,\nu} - \Gamma^\alpha_{\mu\nu}T^\nu_\alpha + \Gamma^\nu_{\alpha\nu}T^\alpha_{\mu} = T^{\nu}_{\mu;\nu} = 0\).
-
-    And it is rather evident that with the different locations of indeces
-the symmetry in the lower-indeces of the Chrsitoffel symbols does not
-apply. The third term can rather easily be set into the form we want:
-
-\[T^{\nu}_{\mu,\nu} - \Gamma^\alpha_{\mu\nu}T^\nu_\alpha + \frac{\sqrt{-g}_{,\alpha}}{\sqrt{-g}}T^\alpha_{\mu} = T^{\nu}_{\mu;\nu} = 0\]
-
-Which we can combine with the first term after some index shuffling and
-inverse product rule to get:
-
-\[ \frac{(\sqrt{-g}T^\nu_\mu)_{,\nu}}{\sqrt{-g}} - \Gamma^\alpha_{\mu\nu}T^\nu_\alpha = T^{\nu}_{\mu;\nu} = 0\]
-
-    Which implies that the term subtracted off here has to self cancel.
-Except, there's no way to guarantee that. It is easy to imagine a
-symmetric tensor where that is not the case. Simply have there only be
-positive values and put them all on the diagonal in the radial metric,
-where only -r is along the diagonals! Which would restrict the elements
-of the tensor to be related via a linear equation which is not true for
-all symmetric tensors.
-
-    Antisymmetry time! the middle term is 0. All flipped terms cancel, and
-all diagonal terms are zero. Thus\ldots{}
-
-\(\Rightarrow F^{\alpha\beta}_{,\beta} + \Gamma^\beta_{\mu\beta}F^{\alpha\mu} = F^{\alpha\beta}_{;\beta}\).
-
-\(\Rightarrow F^{\alpha\beta}_{,\beta} + \frac{\sqrt{-g}_{,\mu}}{\sqrt{-g}}F^{\alpha\mu} = F^{\alpha\beta}_{;\beta}\).
-
-\(F^{\alpha\beta}_{,\beta} + \Gamma^\alpha_{\mu\beta}F^{\mu\beta} + \Gamma^\beta_{\mu\beta}F^{\alpha\mu} = F^{\alpha\beta}_{;\beta}\)
-
-    \emph{b) Suppose that in these coordinates \(T^{\alpha\beta}\neq 0\)
-only in some bounded region of each spacelike hypersurface
-\(x^0 = const\). Show that 7.41 (the above) implies}
-
-\[ \int_{x_0 = const} T^\nu_\mu \sqrt{-g} n_\nu d^3x \]
-
-\emph{is independent of \(x^0\) if \(n_\nu\) is the unit normal to the
-hypersurface. This is the generalization to continua of the conservation
-law stated after 7.29.}
-
-    \emph{c) Consider flat Minkowski space in a global inertial frame with
-spherical polar coordinates \((t,r,\theta,\phi)\). Show from b) that}
-
-\[ J = \int_{t=const} T^0_\phi r^2sin\theta drd\theta d\phi\]
-
-\emph{is independent of t. This is the total angular momentum of the
-system.}
-
-    \emph{d) Express the integral in c) in terms of the components
-\(T^{\alpha\beta}\) on the cartesian basis (t,x,y,z) showing that}
-
-\[ J = \int_{t=const} (xT^{y0}-yT^{x0}) dxdydz\]
-
-\emph{This is the continuum version of the nonrelativistic expression
-\((\textbf{r} \times \textbf{p})_z\) for a particle's angular momentum
-about the z axis.}
-
-    \hypertarget{problem-9-back-to-top}{%
-\section{\texorpdfstring{Problem 9 {[}Back to
-\hyperref[toc]{top}{]}}{Problem 9 {[}Back to {]}}}\label{problem-9-back-to-top}}
-
-\[\label{P9}\]
-
-\emph{a) Find the components of the Reimann tensor
-\(R_{\alpha\beta\mu\nu}\)} for the metric 7.8 to first order in
-\(\phi\)*
-
-If we don't find a trick quickly this will be dismissed as needlessly
-tedious.
-
-Actually we decide it isn't really, since we have all the christoffel
-coefficients and they're all really simple! Though naturally we find
-\(R^{\alpha}_{\beta\mu\nu}\) instead since that one uses the
-coefficients directly. We can just straight-up write them out maybe!
-6.63 says:
-
-\[ R^\alpha_{\beta\mu\nu} = \Gamma^\alpha_{\beta\nu,\mu} - \Gamma^\alpha_{\beta\mu,\nu} + \Gamma^\alpha_{\sigma\mu}\Gamma^\sigma_{\beta\mu,\nu} - \Gamma^\alpha_{\sigma\nu}\Gamma^\sigma_{\beta\mu} \]
-
-and here are the Christoff symbols we already found:
-
-\[ \Gamma^{\gamma}_{\beta\mu} = \begin{bmatrix}
-\phi_{,t} & \phi_{,x} & \phi_{,y} & \phi_{,z} \\ 
-\phi_{,x} & -\phi_{,t} & 0 & 0 \\
-\phi_{,y} & 0 & -\phi_{,t} & 0 \\
-\phi_{,z} & 0 & 0 & -\phi_{,t}
-\end{bmatrix},\begin{bmatrix}
-\phi_{,x} & -\phi_{,t} & 0 & 0 \\ 
--\phi_{,t} & -\phi_{,x} & -\phi_{,y} & -\phi_{,z} \\
-0 & -\phi_{,y} & \phi_{,x} & 0 \\
-0 & -\phi_{,z} & 0 & \phi_{,x}
-\end{bmatrix},\begin{bmatrix}
-\phi_{,y} & 0 & -\phi_{,t} & 0 \\ 
-0 & \phi_{,y} & -\phi_{,x} & 0 \\
--\phi_{,t} & -\phi_{,x} & -\phi_{,y} & -\phi_{,z} \\
-0 & 0 & -\phi_{,z} & \phi_{,y}
-\end{bmatrix},\begin{bmatrix}
-\phi_{,z} & 0 & 0 & -\phi_{,t} \\ 
-0 & \phi_{,z} & 0 & -\phi_{,x} \\
-0 & 0 & \phi_{,z} & -\phi_{,y} \\
--\phi_{,t} & -\phi_{,x} & -\phi_{,y} & -\phi_{,z}
-\end{bmatrix}
-\]
-
-Second derivatives would just add another comma term to any of these if
-they end up being used.
-
-Now, we know that there are only 20 distinct terms in R, so we'll look
-at those. \textbf{Problem 6-18} lists those.
-
-Even with just 20 of them\ldots{} we have deemed this to be tedous. All
-the tools are above, it's essentially just a lookup table at this point.
-
-    \emph{b) Show that the equation of geodesic deviation, 6.87, implies (to
-lowest order in \(\phi\) and velocities)}
-
-\[ \frac{d^2\xi^i}{dt^2} = -\phi_{,ij}\xi^j \]
-
-    6.87: \$ \nabla\_V \nabla\emph{V \xi\^{}\alpha =
-R\^{}\alpha}\{\mu\nu\beta\} V\textsuperscript{\mu V}\nu \xi\^{}\beta\$
-
-\ldots Obviously this would require us to fully evaluate a). To avoid
-tedium, it is pretty clear from the form of the actual Christoffel
-symbolst hat such an answer is reasonable, as it would just be second
-derivatives.
-
-Using a trick from \textbf{Problem 10} might give us some greater
-insight though, sicne the double covariant derivatives will actually
-become something in addition to the actual time up there via 6.85:
-
-    \[ \frac{d^2}{d\tau^2} \xi^\alpha + \Gamma^\alpha_{\beta 0,0}\xi^\beta \]
-
-Which provides
-
-\[  \frac{d^2}{d\tau^2} \xi^\alpha = R^\alpha_{\mu\nu\beta} V^\mu V^\nu \xi^\beta - \Gamma^\alpha_{\beta 0,0}\xi^\beta \]
-
-\[ \Rightarrow \frac{d^2}{d\tau^2} \xi^\alpha = (R^\alpha_{\mu\nu\beta} V^\mu V^\nu - \Gamma^\alpha_{\beta 0,0} ) \xi^\beta \]
-
-    Which is essentially just a huge sum of Christoffel symbols, lots of
-them. it's not at all unreasonable to expect it to turn out like the
-equation above.
-
-    \emph{c) Interpret this equation when the geodesics are world lines of
-freely falling particles which begin from rest at nearby poitns in a
-Newtonian gravitaitonal field.}
-
-    Okay, so we need to remember that \(\vec \xi\) is the distance between
-two lines that started out paralell. \(\phi\) is the strength of the
-Newtonian field (often just considered the force).
-
-Thus, what we are looking at is relative acceleration between the two
-particles. Normally when we think of dropping things in gravity, they
-drop together at the same rate--they accelerate with respect to the
-ground, but not each other.
-
-Since this term is celarly nonzero, the point is that this doesn't
-happen. They will eventually diverge, that is, no longer be paralell.
-Notably, if one imagines a uniform gravitaitonal field, then this goes
-away: the distance between them isn't increasing at all and they truly
-are falling in tandem. Such a gravity field does not really exist,
-though.
-
-It is interesting that the exact relation of how the distance relative
-acceleration changes depends on entirely different components,
-indicating some kind of rotational effect in play.
-
-    \hypertarget{problem-10-back-to-top}{%
-\section{\texorpdfstring{Problem 10 {[}Back to
-\hyperref[toc]{top}{]}}{Problem 10 {[}Back to {]}}}\label{problem-10-back-to-top}}
-
-\[\label{P10}\]
-
-\emph{a) Show that if a vector field \(\xi^\alpha\) satisfies
-\textbf{Killing's Equation},
-\(\nabla_\alpha \xi_\beta + \nabla_\beta \xi_\alpha = 0\). Then along a
-geodesic, \(p^\alpha\xi_\alpha\) = const. This is a coordinate invariant
-way of characterizing the cosnervation law we deduced from 7.29. We only
-have to know whether a metric admits Killing Fields}
-
-    An important thing to note is that the equation is acting on one-forms,
-not the vectors themselves.
-
-OKAY so this is long and convoluted so BEAR WITH ME.
-
-Start with \[ p^\alpha \xi_\alpha \]
-
-Take the derivative with respect to proper time, the product rule makes
-it split.
-
-\[ \frac{dp^\alpha}{d\tau} \xi_\alpha + p^\alpha \frac{d \xi_\alpha}{d\tau} \]
-
-Now both of these derivatives can be substituted, but each one is a bit
-odd. Start with the momentum.
-
-\[ \frac{dp^\alpha}{d\tau} \Rightarrow U^\beta p^\alpha_{,\beta} \]
-
-This is part of the expansion of the covariant derivative. Perhaps more
-important, though, is that p=mU, and so\ldots.
-
-\[ = m U^\beta U^\alpha_{,\beta} \]
-
-Which is part of the \emph{geodesic}, times m. The sum of the geodesic
-is zero, so the other half of the geodesic can be equated to this one.
-Precisely:
-
-\[ m U^\beta U^\alpha_{,\beta} = - m \Gamma^\alpha_{\mu\beta} U^\beta U^\alpha = - \Gamma^\alpha_{\mu\beta} U^\beta p^\alpha \]
-
-Which we will substitute back into the start when we get back to it.
-
-Now we turn to the other half, but we don't know as much about it. Like
-previously, though, we can identify it with a covariant derivative
-expansion, although this one is a one-form.
-
-\[ \frac{d\xi_\alpha}{d\tau} = U^\beta\xi_{\alpha,\beta} = U^\beta \xi_{\alpha;\beta} + \Gamma^\mu_{\alpha\beta} U^\beta \xi_\mu \]
-
-Note that the covariant derivative remains instead of being able to be
-set to zero. Now, if we make this substitution in the original:
-
-\[ \frac{dp^\alpha}{d\tau} \xi_\alpha + p^\alpha \frac{d \xi_\alpha}{d\tau} \]
-
-\[ = - \Gamma^\alpha_{\mu\beta} U^\beta p^\alpha \xi_\alpha + p^\alpha  U^\beta \xi_{\alpha;\beta} + p^\alpha \Gamma^\mu_{\alpha\beta} U^\beta \xi_\mu \]
-
-With index shuffling the first and last terms cancel, leaving only:
-
-\[ =  p^\alpha  U^\beta \xi_{\alpha;\beta} \]
-
-Now we finally bring in the \textbf{KILLING} property, which basically
-says the covariant derivatives are antisymmetric.
-
-\[ = - p^\alpha  U^\beta \xi_{\beta;\alpha} \]
-
-Which wouldn't tell us much\ldots{} but once again, p=mU. so we can pull
-the m out of the first p and move it to the second.
-
-\[ = - U^\alpha  p^\beta \xi_{\beta;\alpha} \]
-
-So this allows us to do this trick that's so clever it looks like
-cheating.
-
-\[ p^\alpha  U^\beta \xi_{\alpha;\beta} = - U^\alpha  p^\beta \xi_{\beta;\alpha} \]
-
-\[ \Rightarrow p^\alpha  U^\beta \xi_{\alpha;\beta} = - U^\beta  p^\alpha \xi_{\alpha;\beta} \]
-
-The magic of INDEXING. Suddenly, it is equal to its own negative which
-means both sides have to be zero which MEANS the derivative is zero and
-thus THE VALUE IS CONSTANT.
-
-    \emph{b) Find ten Killing fields of Minkowski spacetime.}
-
-    So one-form and vector fields are identical in Minkowski spacetime, so
-we don't have to worry much about changing everything.
-
-Obviously the null field works (0,0,0,0).
-
-Then any constant field (a,b,c,d). Naturally one could cheat and just
-make more out of this one, but we'll only count it as one distinct one
-(though the zero was considered a special case.)
-
-The simplest non-trivial one is (x,-t,0,0)
-
-One can also play on the other side (0,0,z,-y).
-
-And they can be combined due to obvious independence (x,-t,z,-y).
-
-Or we can fixate on one coordinate: (x+y+z, -t, -t, -t)
-
-Notably we can add any of these together to make even more. (2x+y+z,
--2t, -t, -t) and (2x+y+z,-2t,z-t,-y-t) for example.
-
-I think that's enough to get a general idea of how this works, though
-there may be a few odd-derivative cases here and there that might be
-able to be made to work.
-
-NOTE: aha, yes, there was a note we missed: the SUMMATION over the
-indeces. Which means something like t=t can work, as everything gets
-added. Say (x-t,t-x,0,0). That works. What we're actually doing is
-trying every combination of derivatives, ensuring that they equal zero
-in the end.
-
-    \emph{c) Show that if \(\vec \xi\) and \(\vec \eta\) are Killing fields,
-then so is \(\alpha\vec\xi+\beta\vec\eta\) for constant \(\alpha\) and
-\(\beta\)}
-
-    We \emph{demonstrated} this above, but did nothing about showing it was
-always true for all possible killing fields. Furthermore, b) was only in
-Minkowski space, this will be in \emph{other} space and thus technically
-the \textbf{KILLING} property is determined by one-forms rather than the
-vectors themselves.
-
-Fortunately showing that the property holds no matter which way one goes
-is trivial.
-
-\[\nabla_\alpha \xi_\beta + \nabla_\beta \xi_\alpha = 0\]
-
-Apply a raising metric to both sides. They can move in and out of
-covariant derivatives at will and do nothing to 0-one-forms aside from
-turn them into 0-vectors. Which means the flipped form holds as well:
-
-\[\nabla_\alpha g^{\beta\alpha} \xi_\beta + \nabla_\beta g^{\beta\alpha} \xi_\alpha = 0\]
-
-\[\nabla_\alpha \xi^\alpha + \nabla_\beta \xi^\beta = 0\]
-
-Look at how the indeces have changed, fascinating. Now the requirement
-is that self-covariant-derivatives of the vectors themselves eventually
-add to zero.
-
-    Since this a bit suspicious, we note that adding vectors created a new
-vector, but adding the one-forms the original vectors correlate to
-creates a one-form that correlates to the new vector. Which means we can
-also see if we can prove the one-form fields on their own maintain the
-property.
-
-Which\ldots{} is rahter easy to show. Let a one-form be a combination of
-two one-forms\ldots{}
-
-\[\nabla_\alpha \xi_\beta + \nabla_\beta \xi_\alpha \]
-\[ = \nabla_\alpha (\omega_\beta + \iota_\beta) + \nabla_\beta (\omega_\alpha + \iota_\alpha) \]
-\[ = \nabla_\alpha \omega_\beta + \nabla_\alpha \iota_\beta + \nabla_\beta \omega_\alpha + \nabla_\beta \iota_\alpha \]
-
-Which just contains two copies of the original relation, both equal
-zero, so it holds.
-
-    \emph{d) Show that Lorentz transformations of the fields in b) simply
-produce linear combinations as in c).}
-
-    Lorentz transformations can always be represented as
-\[(\gamma, -v\gamma) (-v\gamma, \gamma)\] with enough coordinate
-rotations. Let's use some two-fields to make this easier: (x,-t) is our
-example, the result becomes
-\((x\gamma + v\gamma t, -vx\gamma - t\gamma)\). Which yes is a linear
-combination of (x,-t) and (t,-x). Very simple.
-
-Note: the metric does not change.
-
-    \emph{e) If you did \textbf{Problem 7} use the results of 7-a to find
-Killing vectors of metrics ii)-iv)}
-
-    Will you take the zero vector? No? Well in that case, conserved
-quantities will help us here. The conserved quantities can refer to each
-other easily with no issue, so having a \[\phi , -t\] swap will work for
-ii) and iii). However, iv) only has one conserved quantity\ldots{}
-
-But, as we showed also in \textbf{Problem 7}, it's analagous to
-spherical shell coordinates. Since we don't wanna waste time on this the
-method is rather obvious: take the covariant derivative of either
-\(\theta\) or \(\phi\), find out what the result is, and then use that
-result on the other coordinate to make it equal the negative of the
-first. The Chrsistoffel symbol calculation (and typing) will take up
-most of the time here.
-
-    Edit: all right, the day is new, might as well actually calculate it. Go
-ahead and use the r=1 metric, which has diagonal \((1,sin^2\theta)\).
-
-Since it might be helpful to write them out, here's the relations in
-shorthand:
-
-\[ \theta\theta\theta = 1/2 \]
-\[ \theta\theta\phi = \theta\phi\theta = \phi\phi\phi = \phi\theta\theta = 0 \]
-\[ \theta\phi\phi = -cos\theta sin\theta \]
-\[ \phi\theta\phi = \phi\phi\theta = 1/tan\theta \]
-
-    Let's let the \(\theta\) component be \(\phi\), and then differentiate
-it with respect to \(\phi\).
-
-\[ V^\theta_{;\phi} = V^\theta_{,\phi} + \Gamma^\theta_{\mu\phi} V^\mu \]
-\[ = 1 + \Gamma^\theta_{\theta\phi} V^\theta + \Gamma^\theta_{\phi\phi} V^\phi \]
-\[ = 1 + 0 - cos\theta sin\theta V^\phi \]
-
-We're going to end up with a differential equation, since:
-
-\[ V^\phi_{;\theta} = -V^\theta_{;\phi} = cos\theta sin\theta V^\phi - 1 \]
-\[ V^\phi_{;\theta} = V^\phi_{,\theta} + \Gamma^\phi_{\phi\theta} V^\phi + \Gamma^\phi_{\theta\theta} V^\theta \]
-\[ = V^\phi_{,\theta}\]
-
-Which brings us to:
-
-\[ cos\theta sin\theta V^\phi - 1 = V^\phi_{,\theta} + \frac{1}{tan\theta} V^\phi\]
-
-Solve for \(V^\phi\)
-
-    \[ cos\theta sin\theta V^\phi - 1 - \frac{1}{tan\theta} V^\phi = V^\phi_{,\theta} \]
-
-Let's just have a calculator do this.
-
-\ldots Hmm well. At least we have a answer.
-
-\begin{figure}
-\centering
-\includegraphics{attachment:Screenshot\%20from\%202022-06-07\%2008-42-16.png}
-\caption{Screenshot\%20from\%202022-06-07\%2008-42-16.png}
-\end{figure}
-
-There's probably a wiser and better choice somewhere that will be more
-evident, but this proves the principle.
-
-Derived using \hyperref[1]{1}
+\emph{a) Let A be an nxn matrix whose entries are all very small,
+\(|A_{ij} << 1/n|\), and let I be the unit matrix. Show that}
+
+\[ (I+A)^{-1} = I - A + A^2 - A^3 + A^4 ... \]
+
+\emph{by proving that i) the series on the right hand converges
+absolutely for each of the \(n^2\) entries, and ii) (I+A) times the
+right-hand side equals I.}
+
+    The absolute convergence argument is sensible. We oscillate up and down,
+but every time add a smaller and smaller magnitude number. (we're using
+much less than 1/n, not 1, which is what makes this true. Every
+multiplication also sees the addition of n of those multiplications, but
+if everythign is less than 1/n, this is always a decrease.) Now what it
+converges TO is heavily dependent on what exactly the terms ARE. Perhaps
+we can set up an iteration to find out exactly what\ldots{} yeah no that
+infinite sum kept increasing in dimensionality to absurd degrees. But it
+does HAVE to converge since the entries are all very small.
+
+Anyway with the small numbers approximation multiplying I+A times the
+right side reduces to (I+A)(I-A) = I + A - A + smol. Small terms go
+away, A cancels, I remains.
+
+So this is at least accurate for very small entries, yes. However, the
+\textless\textless{} 1/n is a definite requirement, otherwise the
+matrices can and will grow in size.
+
+    \emph{b) Use a) to establish 8.21 from 8.20}
+
+    Oh this is so much easier than it seeemd. The inverse of I+A is just
+I-A. Trivially true for 8.21 and 8.20, which are
+
+8.20: \$ \Lambda\^{}\{\alpha'\}\emph{\beta = \delta\^{}\alpha}\beta +
+\xi\^{}\alpha\_\{,\beta\} \$
+
+8.21: \$ \Lambda\^{}\alpha\emph{\{\beta'\} = \delta\^{}\alpha}\beta -
+\xi\^{}\alpha\_\{,\beta\} \$
+
+    This naturally relies on the matrices being inverses of each other to
+actually get this relation. Clearly they are, but why? The indeces don't
+exactly match up quite right\ldots{} well, except it's all symmetric. I
+is obviously symmetric, and
 
     \hypertarget{addendum-output-this-notebook-to-latex-formatted-pdf-file-back-to-top}{%
 \section{\texorpdfstring{Addendum: Output this notebook to
@@ -1503,7 +783,7 @@ Derived using \hyperref[1]{1}
 The following code cell converts this Jupyter notebook into a proper,
 clickable \(\LaTeX\)-formatted PDF file. After the cell is successfully
 run, the generated PDF may be found in the root NRPy+ tutorial
-directory, with filename \url{GR-07.pdf} (Note that clicking on this
+directory, with filename \url{GR-08.pdf} (Note that clicking on this
 link may not work; you may need to open the PDF file through another
 means.)
 
@@ -1513,23 +793,23 @@ six locations, two here in the Markdown, four in the code below.
 \begin{itemize}
 \tightlist
 \item
-  GR-07.pdf
+  GR-08.pdf
 \item
-  GR-07.ipynb
+  GR-08.ipynb
 \item
-  GR-07.tex
+  GR-08.tex
 \end{itemize}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{1}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{k+kn}{import} \PY{n+nn}{cmdline\PYZus{}helper} \PY{k}{as} \PY{n+nn}{cmd}    \PY{c+c1}{\PYZsh{} NRPy+: Multi\PYZhy{}platform Python command\PYZhy{}line interface}
-\PY{n}{cmd}\PY{o}{.}\PY{n}{output\PYZus{}Jupyter\PYZus{}notebook\PYZus{}to\PYZus{}LaTeXed\PYZus{}PDF}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GR\PYZhy{}07}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{cmd}\PY{o}{.}\PY{n}{output\PYZus{}Jupyter\PYZus{}notebook\PYZus{}to\PYZus{}LaTeXed\PYZus{}PDF}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GR\PYZhy{}08}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-Created GR-07.tex, and compiled LaTeX file to PDF file GR-07.pdf
+Created GR-08.tex, and compiled LaTeX file to PDF file GR-08.pdf
     \end{Verbatim}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
