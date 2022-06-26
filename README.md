@@ -12,4 +12,4 @@ And for the pull:
 
 `git pull`
 
-Which should update any and all potentially crazy changes have been made. 
+Which should update any and all potentially crazy changes that have been made. 
