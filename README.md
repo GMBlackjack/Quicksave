@@ -6,10 +6,10 @@ Everything within is authored by Gabriel M Steward with the exception of quoted 
 
 As this is a personal repository, nobody should have any need to push to this repository. However, if you wish to clone it (for whatever reason), run:
 
-'git clone https://github.com/GMBlackjack/Quicksave.git'
+`git clone https://github.com/GMBlackjack/Quicksave.git`
 
 And for the pull:
 
-'git pull'
+`git pull`
 
 Which should update any and all potentially crazy changes have been made. 
