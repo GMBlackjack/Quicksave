@@ -1,0 +1,7 @@
+EOS_Omni uses c=G=Msun=1, Odie uses c=G=1. Will this cause problems?
+
+Our ultiamte goal is two 1-D arrays, one P and one rho, that are correlated to each other and so can be compared so we can always get a rho from a P and a P from a rho, whenever needed.
+
+Should be able to use any available EOS_Omni EOS. (Polytrope, Gamma-Law, Hybrid, Microphysical EOSm, Cold Tabulated, Tabulated Barotropic). 
+
+((always set poly_gamma, poly_gamma_initial, poly_k, possibly not necessary in our case?))

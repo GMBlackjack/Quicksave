@@ -1,0 +1,170 @@
+(define Euler-state
+  (up 't
+      (up 'theta 'varphi 'psi)
+		(up 'thetadot 'varphidot 'psidot)))
+
+(- (ref ((L-space-Euler 'A 'B 'C) Euler-state)
+        2)
+	(ref (((partial 2) (T-body-Euler 'A 'B 'C)) Euler-state)
+	     1))
+
+(define (rigid-sysder A B C)
+  (Lagrangian->state-derivative (T-body-Euler A B C)))
+
+(set-ode-integration-method! 'qcrk4)
+
+;;;   Show body momentum vector in 3D
+
+(define win3 (frame -0.3 0.3 -0.3 0.3))
+(graphics-operation win3 'set-background-color "black")
+(graphics-operation win3 'set-foreground-color "white")
+(graphics-operation win3 'resize-window 1000 1000)
+(graphics-clear win3)
+
+(define (Rz-matrix angle)
+  (matrix-by-rows
+    (list (cos angle)       (- (sin angle))            0)
+	 (list (sin angle)          (cos angle)             0)
+	 (list           0                     0            1)))
+
+(define (Rx-matrix angle) 
+  (matrix-by-rows
+    (list           1                     0            0)
+	 (list           0          (cos angle)     (- (sin angle)))
+	 (list           0          (sin angle)        (cos angle))))
+
+(define (Euler->M angles)
+  (let ((theta (ref angles 0))
+        (phi   (ref angles 1))
+		  (psi   (ref angles 2)))
+	  (* (Rz-matrix phi)
+	     (Rx-matrix theta)
+		  (Rz-matrix psi))))
+
+(define ((project angles) coords)
+  (* (Euler->M angles) coords)
+))
+
+(define subspacecraft_point (up 0.5 0. 0.2))
+
+(define ((down2up) state) (up (ref state 0) (ref state 1) (ref state 2)))
+
+((project subspacecraft_point) (up 1. 1. 1.))
+
+((project subspacecraft_point) (up 1. 1. 1.))
+
+(define L ((L-body-Euler 1.0 1.41 2.0)  
+              (up 0.0
+		            (up 0.5 0.0 0.0)
+						(up 0.2 -0.25 0.25)) ))
+
+(define ((momenta3D win A B C) state)
+  (let ((t (time state))
+        (L ((L-body-Euler A B C) state)))
+   (let ((L_projected ((project subspacecraft_point) ((down2up) L))))
+	 (let	((x (ref L_projected 0)) 
+	       (y (ref L_projected 1))
+	       (z (ref L_projected 2)))
+	  (if (> 0. y) 
+	      (graphics-operation win 'set-foreground-color "red")
+			(graphics-operation win 'set-foreground-color "pink"))
+	  (plot-point win x z)))))
+
+(graphics-clear win3)
+
+(define A 1.)
+(define B 1.85)
+(define C 2.)
+
+(define (plottrajectory state0) 
+((evolve rigid-sysder A B C)
+	 state0
+	 (momenta3D win3 A B C)
+	 0.3
+	 1000.0
+	 1.0e-12))
+
+(define state0 (up 0.0
+		            (up 2. 0.0 0.0)
+						(up +0.142 +0.0 +0.0)))
+((T-body-Euler A B C) state0)
+
+(define state0 (up 0.0
+		            (up 2. 0.0 0.0)
+						(up +0.0 +0.104 +0.0)))
+((T-body-Euler A B C) state0)
+
+(define state0 (up 0.0
+		            (up 2. 0.0 0.0)
+						(up +0.0 +0.0 +0.1)))
+((T-body-Euler A B C) state0)
+
+(define state0 (up 0.0
+		            (up 2. 0.0 0.0)
+						(up +0.084 +0.084 +0.0)))
+((T-body-Euler A B C) state0)
+
+(define state0 (up 0.0
+		            (up 2. 0.0 0.0)
+						(up +0.082 +0.0 +0.082)))
+((T-body-Euler A B C) state0)
+
+(define state0 (up 0.0
+		            (up 2. 0.0 0.0)
+						(up +0.0 +0.096 +0.096)))
+((T-body-Euler A B C) state0)
+
+(define state0 (up 0.0
+		            (up 2. 0.0 0.0)
+						(up +0.099 +0.074 +0.0)))
+((T-body-Euler A B C) state0)
+
+(define state0 (up 0.0
+		            (up 2. 0.0 0.0)
+						(up +0.099 +0.0 +0.072)))
+((T-body-Euler A B C) state0)
+
+(define state0 (up 0.0
+		            (up 2. 0.0 0.0)
+						(up +0.0 +0.106 +0.082)))
+((T-body-Euler A B C) state0)
+
+(define state0 (up 0.0
+		            (up 2. 0.0 0.0)
+						(up +0.079 +0.079 +0.079)))
+((T-body-Euler A B C) state0)
+
+(define state0 (up 0.0
+		            (up 2. 0.0 0.0)
+						(up +0.086 -0.061 +0.034)))
+((T-body-Euler A B C) state0)
+
+
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up -0.084 +0.084 +0.0)))
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up -0.082 +0.0 +0.082)))
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up +0.0 -0.096 +0.096)))
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up -0.099 +0.074 +0.0)))
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up -0.099 +0.0 +0.072)))
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up +0.0 -0.106 +0.082)))
+
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up +0.084 -0.084 -0.0)))
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up +0.082 -0.0 -0.082)))
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up +0.0 +0.096 -0.096)))
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up +0.099 -0.074 +0.0)))
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up +0.099 +0.0 -0.072)))
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up +0.0 +0.106 -0.082)))
+
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up -0.079 +0.079 +0.079)))
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up +0.079 -0.079 +0.079)))
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up +0.079 +0.079 -0.079)))
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up -0.079 -0.079 +0.079)))
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up -0.079 +0.079 -0.079)))
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up -0.079 -0.079 +0.079)))
+
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up +0.086 +0.061 +0.034)))
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up -0.086 -0.061 -0.034)))
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up -0.086 -0.061 +0.034)))
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up +0.086 +0.061 -0.034)))
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up +0.086 -0.061 -0.034)))
+(plottrajectory (up 0.0 (up 2 0.0 0.0) (up -0.086 +0.061 +0.034)))
+

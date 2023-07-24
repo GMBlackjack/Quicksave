@@ -1,0 +1,61 @@
+; as defined in Chapter 1.7
+
+(define ((L-uniform-acceleration m g) local)
+  (let ((q (coordinate local))
+        (v (velocity local)))
+	(let ((y (ref q 1)))
+	  (- (* 1/2 m (square v)) (* m g y)))))
+
+(define ((dp-coordinates l y_s) local)
+  (let ((t (time local))
+        (theta (coordinate local)))
+	  (let ((x (* l (sin theta)))
+	        (y (- (y_s t) (* l (cos theta)))))
+			(up x y))))
+
+(define (L-pend m l g y_s)
+  (compose (L-uniform-acceleration m g)
+           (F->C (dp-coordinates l y_s))))
+
+(define ((periodic-drive amplitude frequency phase) t)
+  (* amplitude (cos (+ (* frequency t) phase))))
+
+(define (L-periodically-driven-pendulum m l g A omega)
+  (let ((ys (periodic-drive A omega 0)))
+    (L-pend m l g ys)))
+
+; from Chapter 3.5
+
+(define (H-pend-sysder m l g a omega)
+  (Hamiltonian->state-derivative
+    (Lagrangian->Hamiltonian
+	   (L-periodically-driven-pendulum m l g a omega))))
+
+;--------------------------------------------------
+
+
+(define (driven-pendulum-map m l g A omega)
+  (let ((advance (state-advancer H-pend-sysder m l g A omega))
+           (map-period (/ :2pi omega)))
+	 (lambda (theta ptheta return fail)
+	   (let ((ns (advance
+		             (up 0 theta ptheta)     ; initial state
+						 map-period)))           ; integration interval
+		  (return ((principal-value :pi) (coordinate ns))
+		          (momentum ns))))))
+
+(define win (frame :-pi :pi -20000000 20000000))
+(graphics-operation win 'resize-window 1000 1000)
+
+(graphics-clear win)
+
+(let ((m 1.0)
+      (l 9.8)
+		(g 9.8)
+		(A 4))
+  (let ((omega0 (sqrt (/ g l))))
+    (let ((omega (* 200000 omega0)))
+	   (explore-map
+		 win
+		 (driven-pendulum-map m l g A omega)
+		 1000))))      ; 1000 points for each initial condition

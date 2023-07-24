@@ -1,0 +1,17 @@
+GM's personal overview of the files in EOS_Omni
+
+helpers.hh: a file that contians various interpolators and value finders. Most of the functions consist of being passed data and then interpolating between them, and also finding indices of points in the tables nearby said point.
+
+nuc_eos.hh: a header file that defines the namespaces and the variables. There are a lot, though the big ones appear to be rho, temp, and ye. 
+
+dumbASCIItable.cc: a file that prints things to another file to report them. The only quantities it reports multiple of are logrho, logtemp, and yes, which match the major variables we identified above.
+
+nuc_eos_dpdrhoe_dpderho.cc: this file contains a single function that calculates derivatives. This function accepts arrays as input, which means that it is reading from the tables, but in their array form. Where do those arrays come from? 
+
+nuc_eos_full.cc: This one looks far more promising. This function is given values of rho, temp, and Ye and spits out... a ton of stuff at those points. It also has a second version that can take in eps instead of temp. Does this mean we may not have to specify the temp? Maybe. 
+
+nuc_eos_press.cc, nuc_eos_press_cs2.cc, nuc_eos_short.cc:: the three of these follow the pattern of the above, it just appears to be done for different EOS names that are passed in the arguments `CCTK_FNAME(nuc_eos_m_kt0_press_cs2)`. 
+
+readtable.cc: This appears to have been what we were looking for the entire time. It reads an actual table from a HDF5 file, finds all the necessary data, and allocates it where needed. THIS is what we need our "nabber" program to actually do. So this is the file of interest.
+
+readtable_cactus_wrapper.cc: just some cactus interface, appears to be of little importance.
