@@ -13,3 +13,5 @@ And for the pull:
 `git pull`
 
 Which should update any and all potentially crazy changes that have been made. 
+
+Pushing to the repository... isn't your concern! That's mine. (It's annoying.)
